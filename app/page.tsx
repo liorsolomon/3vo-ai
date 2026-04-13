@@ -1,231 +1,446 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Logo from "./Logo";
+import { useEffect, useRef, useState } from "react";
 
-export default function Home() {
+// ─── Nav ──────────────────────────────────────────────────────────────────────
+
+function Nav() {
   const [scrolled, setScrolled] = useState(false);
-
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const fn = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", fn, { passive: true });
+    return () => window.removeEventListener("scroll", fn);
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white">
+    <nav
+      className={`sticky top-0 z-50 px-6 py-5 transition-all duration-300 ${
+        scrolled ? "bg-[#0A0A0A]/90 backdrop-blur-sm border-b border-[#1a1a1a]" : "bg-transparent"
+      }`}
+    >
+      <div className="mx-auto flex max-w-6xl items-center justify-between">
+        {/* Wordmark */}
+        <span
+          className="text-[#00FF85] text-lg tracking-tight"
+          style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+        >
+          3vo.ai
+        </span>
 
-      {/* Nav */}
-      <nav
-        className={`sticky top-0 z-50 px-6 py-4 transition-all ${
-          scrolled
-            ? "border-b border-gray-800/60 backdrop-blur-md bg-[#0a0a0a]/80"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="mx-auto flex max-w-5xl items-center justify-between">
-          <Logo />
-          <div className="flex items-center gap-4">
-            <a
-              href="https://templates.3vo.ai"
-              className="hidden text-sm text-gray-400 hover:text-white transition sm:block"
-            >
-              Templates
-            </a>
-            <a
-              href="https://prompts.3vo.ai"
-              className="hidden text-sm text-gray-400 hover:text-white transition sm:block"
-            >
-              Prompts
-            </a>
-            <a
-              href="https://tools.3vo.ai"
-              className="hidden text-sm text-gray-400 hover:text-white transition sm:block"
-            >
-              Tools
-            </a>
-            <a
-              href="mailto:hello@3vo.ai"
-              className="rounded-lg border border-gray-700 px-4 py-1.5 text-sm font-medium text-white hover:border-gray-500 transition"
-            >
-              Work with us
-            </a>
-          </div>
-        </div>
-      </nav>
+        {/* Single CTA */}
+        <a
+          href="#"
+          className="text-[#00FF85] text-sm tracking-widest hover:opacity-70 transition-opacity"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          WORK WITH US ↗
+        </a>
+      </div>
+    </nav>
+  );
+}
 
-      {/* Hero */}
-      <section className="relative overflow-hidden px-6 pt-32 pb-28 text-center">
-        {/* Subtle grid pattern */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-          }}
-        />
-        <div className="relative mx-auto max-w-5xl">
-          <h1 className="text-4xl font-black tracking-tight leading-tight sm:text-6xl lg:text-8xl">
-            The AI studio<br />
-            <span className="text-indigo-500">that ships.</span>
+// ─── Hero ─────────────────────────────────────────────────────────────────────
+
+function Hero() {
+  const [cursorVisible, setCursorVisible] = useState(true);
+
+  useEffect(() => {
+    // Blink once then stop
+    const timeout = setTimeout(() => setCursorVisible(false), 800);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <section className="relative min-h-screen flex items-center px-6 py-24">
+      <div className="mx-auto max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        {/* Left: copy */}
+        <div>
+          {/* H1 */}
+          <h1
+            className="text-[clamp(48px,8vw,96px)] leading-[1.0] tracking-tight text-[#E8E8E8] mb-6"
+            style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+          >
+            New way to internet.
+            <span
+              className="inline-block w-[3px] h-[0.85em] bg-[#00FF85] align-middle ml-1 transition-opacity duration-200"
+              style={{ opacity: cursorVisible ? 1 : 0 }}
+            />
           </h1>
-          <p className="mt-6 text-lg text-gray-400 sm:text-xl max-w-2xl mx-auto leading-relaxed">
-            3vo is an AI-native product studio. We use teams of specialized AI agents to design,
-            build, and launch digital products — at a speed and cost no traditional agency can match.
+
+          {/* Subhead */}
+          <p
+            className="text-[#00D4FF] text-[20px] leading-relaxed mb-10"
+            style={{ fontFamily: "var(--font-space-mono)" }}
+          >
+            The internet is being rebuilt by agents.
+            <br />
+            We are building the agency.
           </p>
-          <div className="mt-10 flex flex-col w-full items-center gap-4 sm:flex-row sm:w-auto sm:justify-center">
-            <a
-              href="https://templates.3vo.ai"
-              className="w-full sm:w-auto rounded-lg bg-indigo-500 px-8 py-3.5 font-semibold text-white transition hover:bg-indigo-400"
+
+          {/* Hero CTA */}
+          <a
+            href="#"
+            className="inline-block border border-[#00FF85] text-[#00FF85] px-8 py-3 text-sm tracking-widest transition-all duration-200 hover:bg-[#00FF85] hover:text-[#0A0A0A]"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            ENTER THE PROTOCOL ↗
+          </a>
+        </div>
+
+        {/* Right: agent counter widget */}
+        <div className="flex justify-center lg:justify-end">
+          <div className="border border-[#222222] p-8 inline-block">
+            <div
+              className="text-[#E8E8E8]/40 text-xs tracking-widest mb-3"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
             >
-              See what we&apos;ve built
-            </a>
-            <a
-              href="mailto:hello@3vo.ai"
-              className="w-full sm:w-auto rounded-lg border border-gray-700 px-8 py-3.5 font-semibold text-white transition hover:border-gray-500"
+              LIVE AGENT COUNT
+            </div>
+            <div
+              className="text-[#00D4FF] text-5xl tabular-nums leading-none"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
             >
-              Work with us
-            </a>
+              247
+            </div>
+            <div
+              className="text-[#00FF85] text-xs tracking-widest mt-2"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              agents active
+            </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* Brand paragraph */}
-      <section className="border-y border-gray-800 bg-gray-900 px-6 py-12 text-center">
-        <div className="mx-auto max-w-2xl">
-          <p className="text-lg text-gray-400 leading-relaxed">
-            3vo is an AI-native product studio. We build real digital products — templates, tools, and automations —
-            using teams of specialized AI agents. No agency overhead. No bloated timelines.
-            Products that ship in days and generate revenue from day one.
+// ─── Signal Bar ───────────────────────────────────────────────────────────────
+
+const SIGNAL_ITEMS = [
+  "AGENTIC AI",
+  "CRYPTO NATIVE",
+  "CREATOR ECONOMY",
+  "SHIPS FAST",
+  "LEAN TEAM",
+  "REAL REVENUE",
+];
+
+function SignalBar() {
+  const items = [...SIGNAL_ITEMS, ...SIGNAL_ITEMS]; // duplicate for seamless loop
+
+  return (
+    <div className="bg-[#111111] overflow-hidden py-3 group">
+      <div
+        className="flex whitespace-nowrap animate-marquee group-hover:[animation-play-state:paused]"
+      >
+        {items.map((item, i) => (
+          <span
+            key={i}
+            className="text-[#7B2FBE] text-sm tracking-widest mx-6"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            —— {item}
+          </span>
+        ))}
+        {/* duplicate again for truly seamless loop */}
+        {items.map((item, i) => (
+          <span
+            key={`dup-${i}`}
+            className="text-[#7B2FBE] text-sm tracking-widest mx-6"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            —— {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Thesis ───────────────────────────────────────────────────────────────────
+
+function useRevealOnScroll() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, revealed };
+}
+
+function Thesis() {
+  const { ref, revealed } = useRevealOnScroll();
+
+  return (
+    <section ref={ref} className="px-6 py-28">
+      <div className="mx-auto max-w-4xl">
+        {/* Section label */}
+        <div
+          className="text-[#00FF85] text-xs tracking-[0.2em] mb-8 flex items-center gap-3"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          WHAT WE BELIEVE
+          <span className="flex-1 h-px bg-[#00FF85]/30 max-w-[80px]" />
+        </div>
+
+        {/* Statement block 1 */}
+        <div
+          className={`mb-10 transition-all duration-700 ${revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          style={{ transitionDelay: "0ms" }}
+        >
+          <p
+            className="text-[clamp(28px,4vw,48px)] leading-[1.15] tracking-tight text-[#E8E8E8]"
+            style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+          >
+            Most AI companies are building demos.
+            <br />
+            We build things that make money.
           </p>
         </div>
-      </section>
 
-      {/* Products */}
-      <section className="px-6 py-24">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">Our products</h2>
-          <p className="mt-4 text-center text-gray-400">
-            Real products. Live and generating traction.
+        {/* Statement block 2 */}
+        <div
+          className={`mb-12 transition-all duration-700 ${revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          style={{ transitionDelay: "150ms" }}
+        >
+          <p
+            className="text-[clamp(28px,4vw,48px)] leading-[1.15] tracking-tight text-[#E8E8E8]"
+            style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+          >
+            The agentic internet is not coming.
+            <br />
+            It is here. We are already inside it.
           </p>
-          <div className="mt-12 grid gap-6 sm:grid-cols-3">
-            {[
-              {
-                domain: "templates.3vo.ai",
-                href: "https://templates.3vo.ai",
-                tag: "Notion Template OS",
-                oneliner: "Your entire workflow, pre-built in Notion.",
-                descriptor:
-                  "Plug-and-play Notion templates for founders, freelancers, and operators. Every system you need to run a business — without building it from scratch.",
-              },
-              {
-                domain: "prompts.3vo.ai",
-                href: "https://prompts.3vo.ai",
-                tag: "AI Prompt Packs",
-                oneliner: "Prompts that actually work.",
-                descriptor:
-                  "Battle-tested prompt packs for writers, marketers, and builders. Skip the trial and error — get the output you need on the first try.",
-              },
-              {
-                domain: "tools.3vo.ai",
-                href: "https://tools.3vo.ai",
-                tag: "Automation Workflows",
-                oneliner: "Automate the work you hate.",
-                descriptor:
-                  "Pre-built automation workflows for the tools you already use. Connect your stack, eliminate manual work, and reclaim your time.",
-              },
-            ].map((product) => (
-              <a
-                key={product.domain}
-                href={product.href}
-                className="group rounded-xl border border-gray-800 bg-gray-900 p-6 transition hover:border-gray-600"
+        </div>
+
+        {/* Supporting paragraph */}
+        <div
+          className={`transition-all duration-700 ${revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          style={{ transitionDelay: "300ms" }}
+        >
+          <p
+            className="text-[14px] leading-[1.8] text-[#E8E8E8]/60 max-w-2xl"
+            style={{ fontFamily: "var(--font-space-mono)" }}
+          >
+            3vo.ai is a lean studio building at the intersection of agents, crypto, and the creator
+            economy. We ship products that generate revenue, then iterate. No pitch decks. No
+            vaporware. No waiting for the future to arrive.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Pillars ──────────────────────────────────────────────────────────────────
+
+const PILLARS = [
+  {
+    num: "01",
+    title: "AGENTIC INFRASTRUCTURE",
+    body: "Tools that let agents coordinate, earn, and operate. The infrastructure layer for the agent-native internet — built for developers who are already shipping.",
+  },
+  {
+    num: "02",
+    title: "CREATOR MONETIZATION",
+    body: "New revenue streams for people who build in public. Monetize your audience, your content, and your tools — without surrendering your stack to a platform.",
+  },
+  {
+    num: "03",
+    title: "CRYPTO RAILS",
+    body: "Money that moves at the speed of agents. Programmable, borderless, composable — the financial layer for everything we build.",
+  },
+];
+
+function Pillars() {
+  return (
+    <section className="px-6 py-28">
+      <div className="mx-auto max-w-6xl">
+        {/* Section label */}
+        <div
+          className="text-[#00FF85] text-xs tracking-[0.2em] mb-12 flex items-center gap-3"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          WHAT WE BUILD
+          <span className="flex-1 h-px bg-[#00FF85]/30 max-w-[80px]" />
+        </div>
+
+        {/* 3-column grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1a1a1a]">
+          {PILLARS.map((p) => (
+            <div
+              key={p.num}
+              className="group bg-[#0A0A0A] border border-[#222222] p-8 transition-all duration-200 hover:border-[#00FF85] cursor-pointer"
+            >
+              {/* Number */}
+              <div
+                className="text-[#00FF85] text-xs tracking-widest mb-6"
+                style={{ fontFamily: "var(--font-share-tech-mono)" }}
               >
-                <div className="mb-4 inline-block rounded-md bg-indigo-500/10 px-2.5 py-1 text-xs font-semibold text-indigo-400">
-                  {product.tag}
-                </div>
-                <h3 className="text-lg font-bold">{product.oneliner}</h3>
-                <p className="mt-2 text-sm text-gray-400 leading-relaxed">{product.descriptor}</p>
-                <div className="mt-4 text-sm font-medium text-indigo-400 transition group-hover:text-indigo-300">
-                  {product.domain} →
-                </div>
+                {p.num}
+              </div>
+
+              {/* Title */}
+              <h3
+                className="text-[#E8E8E8] text-[22px] leading-tight mb-4"
+                style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+              >
+                {p.title}
+              </h3>
+
+              {/* Body */}
+              <p
+                className="text-[#E8E8E8]/70 text-[13px] leading-[1.8] mb-8"
+                style={{ fontFamily: "var(--font-space-mono)" }}
+              >
+                {p.body}
+              </p>
+
+              {/* Card CTA */}
+              <div className="border-t border-[#222222] pt-6">
+                <span
+                  className="text-[#00D4FF] text-xs tracking-widest transition-opacity group-hover:opacity-70"
+                  style={{ fontFamily: "var(--font-share-tech-mono)" }}
+                >
+                  EXPLORE ↗
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Final CTA ────────────────────────────────────────────────────────────────
+
+function FinalCTA() {
+  return (
+    <section className="px-6 py-[160px]">
+      <div className="mx-auto max-w-5xl">
+        <h2
+          className="text-[clamp(36px,5.5vw,64px)] leading-[1.1] tracking-tight text-[#E8E8E8] mb-12"
+          style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+        >
+          Ready to build inside
+          <br />
+          the new internet?
+        </h2>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          {/* Primary CTA */}
+          <a
+            href="#"
+            className="inline-block bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            WORK WITH US ↗
+          </a>
+
+          {/* Secondary CTA */}
+          <a
+            href="#"
+            className="inline-block border border-[#00D4FF] text-[#00D4FF] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-70"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            READ THE THESIS ↗
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Footer ───────────────────────────────────────────────────────────────────
+
+function Footer() {
+  return (
+    <footer className="px-6 py-8 border-t border-[#1a1a1a]">
+      <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        {/* Left: wordmark + copyright */}
+        <div>
+          <span
+            className="text-[#E8E8E8]/40 text-xs tracking-widest"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            3vo.ai
+          </span>
+          <p
+            className="text-[#E8E8E8]/40 text-xs tracking-widest mt-1"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            © 2026 3vo.ai
+          </p>
+        </div>
+
+        {/* Right: social + legal */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+          {/* Social icons */}
+          <div className="flex items-center gap-4">
+            {[
+              { label: "X", href: "#" },
+              { label: "GH", href: "#" },
+              { label: "TG", href: "#" },
+            ].map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                className="text-[#E8E8E8]/40 text-xs tracking-widest hover:text-[#00FF85] transition-colors"
+                style={{ fontFamily: "var(--font-share-tech-mono)" }}
+              >
+                {s.label}
+              </a>
+            ))}
+          </div>
+
+          {/* Legal */}
+          <div className="flex items-center gap-4">
+            {["PRIVACY", "TERMS"].map((link) => (
+              <a
+                key={link}
+                href="#"
+                className="text-[#E8E8E8]/40 text-xs tracking-widest hover:text-[#E8E8E8]/70 transition-colors"
+                style={{ fontFamily: "var(--font-share-tech-mono)" }}
+              >
+                {link}
               </a>
             ))}
           </div>
         </div>
-      </section>
+      </div>
+    </footer>
+  );
+}
 
-      {/* How it works */}
-      <section className="bg-gray-900 px-6 py-24">
-        <div className="mx-auto max-w-5xl text-center">
-          <h2 className="text-3xl font-bold sm:text-4xl">How it works</h2>
-          <div className="mt-12 grid gap-6 sm:grid-cols-3 text-left">
-            {[
-              {
-                step: "01",
-                title: "You bring the idea.",
-                desc: "Share what you want to build. No deck required, no brief needed. A conversation is enough.",
-              },
-              {
-                step: "02",
-                title: "Our agents ship it.",
-                desc: "Specialized AI agents handle design, development, and copy in parallel — at machine speed.",
-              },
-              {
-                step: "03",
-                title: "You start generating revenue.",
-                desc: "Real products, live and generating traction. Not prototypes. Not mockups. The real thing.",
-              },
-            ].map((s) => (
-              <div key={s.step} className="rounded-xl border border-gray-800 bg-gray-900 p-6">
-                <div className="text-4xl font-extrabold text-indigo-500">{s.step}</div>
-                <h3 className="mt-3 font-bold text-white">{s.title}</h3>
-                <p className="mt-2 text-sm text-gray-400 leading-relaxed">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-4 flex justify-center gap-3 text-sm text-gray-500 items-center">
-            <span>Idea</span>
-            <span className="text-indigo-500">→</span>
-            <span>Agents ship</span>
-            <span className="text-indigo-500">→</span>
-            <span>Revenue</span>
-          </div>
-        </div>
-      </section>
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
-      {/* CTA */}
-      <section className="px-6 py-24 text-center">
-        <div className="mx-auto max-w-2xl">
-          <h2 className="text-3xl font-extrabold sm:text-5xl leading-tight">
-            Built by agents.<br />
-            <span className="text-indigo-500">Shipped for founders.</span>
-          </h2>
-          <p className="mt-6 text-lg text-gray-400 leading-relaxed">
-            Explore what 3vo has built — or tell us what you need built next.
-          </p>
-          <div className="mt-8 flex flex-col w-full items-center gap-4 sm:flex-row sm:w-auto sm:justify-center">
-            <a
-              href="https://templates.3vo.ai"
-              className="w-full sm:w-auto rounded-lg bg-indigo-500 px-8 py-3.5 font-semibold text-white transition hover:bg-indigo-400"
-            >
-              See what we&apos;ve built
-            </a>
-            <a
-              href="mailto:hello@3vo.ai"
-              className="w-full sm:w-auto rounded-lg border border-gray-700 px-8 py-3.5 font-semibold text-white transition hover:border-gray-500"
-            >
-              Work with us
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-800 px-6 py-8 text-center text-sm text-gray-500">
-        <p>Built by agents. Shipped for founders.</p>
-        <p className="mt-1">© 2026 3vo.ai. All rights reserved.</p>
-      </footer>
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-[#0A0A0A]">
+      <Nav />
+      <Hero />
+      <SignalBar />
+      <Thesis />
+      <Pillars />
+      <FinalCTA />
+      <Footer />
     </main>
   );
 }

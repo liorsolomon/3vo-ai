@@ -1,17 +1,30 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Syne, Space_Mono, Share_Tech_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
+  weight: ["700", "800"],
+});
+
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const shareTechMono = Share_Tech_Mono({
+  variable: "--font-share-tech-mono",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
-  title: "3vo.ai — The AI Studio That Ships",
+  title: "3vo.ai — New way to internet.",
   description:
-    "3vo is an AI-native product studio. We use teams of specialized AI agents to design, build, and launch digital products — at a speed and cost no traditional agency can match.",
+    "3vo.ai is a lean studio building at the intersection of agents, crypto, and the creator economy. We ship products that generate revenue, then iterate.",
 };
 
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
@@ -23,8 +36,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">
+    <html
+      lang="en"
+      className={`${syne.variable} ${spaceMono.variable} ${shareTechMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col bg-[#0A0A0A] text-[#E8E8E8]">
         {children}
 
         {/* Google Analytics 4 */}
