@@ -2,9 +2,151 @@
 
 import { useEffect, useRef, useState } from "react";
 
+// ─── Contact Modal ────────────────────────────────────────────────────────────
+
+function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [description, setDescription] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  const handleClose = () => {
+    setFirstName("");
+    setLastName("");
+    setDescription("");
+    setSubmitted(false);
+    onClose();
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm px-4"
+      onClick={handleClose}
+    >
+      <div
+        className="bg-[#0A0A0A] border border-[#222222] p-8 w-full max-w-md relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close */}
+        <button
+          onClick={handleClose}
+          className="absolute top-4 right-4 text-[#E8E8E8]/40 hover:text-[#E8E8E8]/80 transition-colors text-xs tracking-widest"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          ✕
+        </button>
+
+        {submitted ? (
+          <div className="py-8 text-center">
+            <p
+              className="text-[#00FF85] text-sm tracking-widest"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              MESSAGE RECEIVED
+            </p>
+            <p
+              className="text-[#E8E8E8]/50 text-xs tracking-widest mt-3"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              WE'LL BE IN TOUCH.
+            </p>
+          </div>
+        ) : (
+          <>
+            <h2
+              className="text-[#00FF85] text-sm tracking-[0.2em] mb-8"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              CONTACT US
+            </h2>
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    className="text-[#E8E8E8]/40 text-[10px] tracking-widest"
+                    style={{ fontFamily: "var(--font-share-tech-mono)" }}
+                  >
+                    FIRST NAME
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="bg-[#111111] border border-[#222222] text-[#E8E8E8] text-sm px-3 py-2 outline-none focus:border-[#00FF85] transition-colors"
+                    style={{ fontFamily: "var(--font-space-mono)" }}
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label
+                    className="text-[#E8E8E8]/40 text-[10px] tracking-widest"
+                    style={{ fontFamily: "var(--font-share-tech-mono)" }}
+                  >
+                    LAST NAME
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="bg-[#111111] border border-[#222222] text-[#E8E8E8] text-sm px-3 py-2 outline-none focus:border-[#00FF85] transition-colors"
+                    style={{ fontFamily: "var(--font-space-mono)" }}
+                  />
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label
+                  className="text-[#E8E8E8]/40 text-[10px] tracking-widest"
+                  style={{ fontFamily: "var(--font-share-tech-mono)" }}
+                >
+                  DESCRIPTION
+                </label>
+                <textarea
+                  required
+                  rows={4}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  className="bg-[#111111] border border-[#222222] text-[#E8E8E8] text-sm px-3 py-2 outline-none focus:border-[#00FF85] transition-colors resize-none"
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="mt-2 bg-[#00FF85] text-[#0A0A0A] px-6 py-3 text-sm tracking-widest transition-opacity hover:opacity-80"
+                style={{ fontFamily: "var(--font-share-tech-mono)" }}
+              >
+                SUBMIT
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ─── Nav ──────────────────────────────────────────────────────────────────────
 
-function Nav() {
+function Nav({ onContactOpen }: { onContactOpen: () => void }) {
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10);
@@ -28,13 +170,13 @@ function Nav() {
         </span>
 
         {/* Single CTA */}
-        <a
-          href="#"
+        <button
+          onClick={onContactOpen}
           className="text-[#00FF85] text-sm tracking-widest hover:opacity-70 transition-opacity"
           style={{ fontFamily: "var(--font-share-tech-mono)" }}
         >
-          WORK WITH US ↗
-        </a>
+          CONTACT US ↗
+        </button>
       </div>
     </nav>
   );
@@ -78,14 +220,13 @@ function Hero() {
             We are building the agency.
           </p>
 
-          {/* Hero CTA */}
-          <a
-            href="#"
-            className="inline-block border border-[#00FF85] text-[#00FF85] px-8 py-3 text-sm tracking-widest transition-all duration-200 hover:bg-[#00FF85] hover:text-[#0A0A0A]"
+          {/* Hero CTA — non-clickable */}
+          <span
+            className="inline-block border border-[#00FF85] text-[#00FF85] px-8 py-3 text-sm tracking-widest"
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
             ENTER THE PROTOCOL ↗
-          </a>
+          </span>
         </div>
 
         {/* Right: agent counter widget */}
@@ -337,7 +478,7 @@ function Pillars() {
 
 // ─── Final CTA ────────────────────────────────────────────────────────────────
 
-function FinalCTA() {
+function FinalCTA({ onContactOpen }: { onContactOpen: () => void }) {
   return (
     <section className="px-6 py-[160px]">
       <div className="mx-auto max-w-5xl">
@@ -352,17 +493,17 @@ function FinalCTA() {
 
         <div className="flex flex-col sm:flex-row gap-4">
           {/* Primary CTA */}
-          <a
-            href="#"
+          <button
+            onClick={onContactOpen}
             className="inline-block bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
-            WORK WITH US ↗
-          </a>
+            CONTACT US ↗
+          </button>
 
           {/* Secondary CTA */}
           <a
-            href="#"
+            href="/thesis"
             className="inline-block border border-[#00D4FF] text-[#00D4FF] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-70"
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
@@ -396,39 +537,17 @@ function Footer() {
           </p>
         </div>
 
-        {/* Right: social + legal */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
-          {/* Social icons */}
-          <div className="flex items-center gap-4">
-            {[
-              { label: "X", href: "#" },
-              { label: "GH", href: "#" },
-              { label: "TG", href: "#" },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                className="text-[#E8E8E8]/40 text-xs tracking-widest hover:text-[#00FF85] transition-colors"
-                style={{ fontFamily: "var(--font-share-tech-mono)" }}
-              >
-                {s.label}
-              </a>
-            ))}
-          </div>
-
-          {/* Legal */}
-          <div className="flex items-center gap-4">
-            {["PRIVACY", "TERMS"].map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="text-[#E8E8E8]/40 text-xs tracking-widest hover:text-[#E8E8E8]/70 transition-colors"
-                style={{ fontFamily: "var(--font-share-tech-mono)" }}
-              >
-                {link}
-              </a>
-            ))}
-          </div>
+        {/* Right: social icons (no links yet) */}
+        <div className="flex items-center gap-4">
+          {["X", "GH", "TG"].map((label) => (
+            <span
+              key={label}
+              className="text-[#E8E8E8]/40 text-xs tracking-widest"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              {label}
+            </span>
+          ))}
         </div>
       </div>
     </footer>
@@ -438,14 +557,17 @@ function Footer() {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function Home() {
+  const [contactOpen, setContactOpen] = useState(false);
+
   return (
     <main className="min-h-screen bg-[#0A0A0A]">
-      <Nav />
+      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
+      <Nav onContactOpen={() => setContactOpen(true)} />
       <Hero />
       <SignalBar />
       <Thesis />
       <Pillars />
-      <FinalCTA />
+      <FinalCTA onContactOpen={() => setContactOpen(true)} />
       <Footer />
     </main>
   );
