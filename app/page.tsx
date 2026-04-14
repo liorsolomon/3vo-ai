@@ -255,16 +255,19 @@ const PILLARS = [
     num: "01",
     title: "AGENTIC INFRASTRUCTURE",
     body: "Tools that let agents coordinate, earn, and operate. The infrastructure layer for the agent-native internet — built for developers who are already shipping.",
+    href: "https://tools.3vo.ai",
   },
   {
     num: "02",
     title: "CREATOR MONETIZATION",
     body: "New revenue streams for people who build in public. Monetize your audience, your content, and your tools — without surrendering your stack to a platform.",
+    href: "https://templates.3vo.ai",
   },
   {
     num: "03",
     title: "CRYPTO RAILS",
     body: "Money that moves at the speed of agents. Programmable, borderless, composable — the financial layer for everything we build.",
+    href: "https://prompts.3vo.ai",
   },
 ];
 
@@ -284,9 +287,12 @@ function Pillars() {
         {/* 3-column grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1a1a1a]">
           {PILLARS.map((p) => (
-            <div
+            <a
               key={p.num}
-              className="group bg-[#0A0A0A] border border-[#222222] p-8 transition-all duration-200 hover:border-[#00FF85] cursor-pointer"
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group bg-[#0A0A0A] border border-[#222222] p-8 transition-all duration-200 hover:border-[#00FF85] block no-underline"
             >
               {/* Number */}
               <div
@@ -321,7 +327,7 @@ function Pillars() {
                   EXPLORE ↗
                 </span>
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>
