@@ -25,6 +25,24 @@ export const metadata: Metadata = {
   title: "3vo.ai — New way to internet.",
   description:
     "3vo.ai is a lean studio building at the intersection of agents, crypto, and the creator economy. We ship products that generate revenue, then iterate.",
+  metadataBase: new URL("https://3vo.ai"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "3vo.ai — New way to internet.",
+    description:
+      "3vo.ai is a lean studio building at the intersection of agents, crypto, and the creator economy. We ship products that generate revenue, then iterate.",
+    url: "https://3vo.ai",
+    siteName: "3vo.ai",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "3vo.ai — New way to internet.",
+    description:
+      "3vo.ai is a lean studio building at the intersection of agents, crypto, and the creator economy. We ship products that generate revenue, then iterate.",
+  },
 };
 
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
