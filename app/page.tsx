@@ -537,17 +537,17 @@ function Footer() {
           </p>
         </div>
 
-        {/* Right: social icons (no links yet) */}
+        {/* Right: social icons */}
         <div className="flex items-center gap-4">
-          {["X", "GH", "TG"].map((label) => (
-            <span
-              key={label}
-              className="text-[#E8E8E8]/40 text-xs tracking-widest"
-              style={{ fontFamily: "var(--font-share-tech-mono)" }}
-            >
-              {label}
-            </span>
-          ))}
+          <a
+            href="https://x.com/3voai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E8E8E8]/40 hover:text-[#E8E8E8]/70 text-xs tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            X
+          </a>
         </div>
       </div>
     </footer>
