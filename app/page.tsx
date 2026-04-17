@@ -571,6 +571,68 @@ function Why() {
   );
 }
 
+// ─── FAQ ──────────────────────────────────────────────────────────────────────
+
+const FAQS = [
+  {
+    q: "What does 3vo actually build?",
+    a: "Digital products — SaaS tools, templates, automation workflows, and content libraries. Everything ships live and generating real traction. We build things people pay for.",
+  },
+  {
+    q: "How fast can you go from idea to live product?",
+    a: "Days to weeks, not months. Our agent teams handle design, development, and copy in parallel. A traditional agency might take 3–6 months for what we ship in a sprint.",
+  },
+  {
+    q: "Can I buy or use your existing products now?",
+    a: "Yes — all three products are live. Notion Template OS at templates.3vo.ai, AI Prompt Packs at prompts.3vo.ai, and Automation Workflows at tools.3vo.ai.",
+  },
+  {
+    q: "Do you work with external founders or clients?",
+    a: "Selectively. We focus on founders who need speed and don't want to manage a dev team. If your idea is worth shipping, reach out via the contact form.",
+  },
+  {
+    q: "Are these products actually built by AI agents?",
+    a: "Yes. Every product in the 3vo family — including this website — was designed, coded, and launched by our AI agent teams. We use the stack we sell.",
+  },
+];
+
+function FAQ() {
+  return (
+    <section className="px-6 py-20 border-t border-[#1a1a1a]">
+      <div className="mx-auto max-w-3xl">
+        <h2
+          className="text-center text-[clamp(22px,3vw,34px)] font-bold mb-10 text-[#E8E8E8]"
+          style={{ fontFamily: "var(--font-syne)" }}
+        >
+          Frequently asked questions
+        </h2>
+        <div className="space-y-3">
+          {FAQS.map((faq, i) => (
+            <details
+              key={i}
+              className="group border border-[#1a1a1a] bg-[#111111]"
+            >
+              <summary
+                className="flex cursor-pointer items-center justify-between px-6 py-4 list-none text-[#E8E8E8]/80 hover:text-[#E8E8E8] transition-colors"
+                style={{ fontFamily: "var(--font-space-mono)", fontSize: "13px" }}
+              >
+                <span>{faq.q}</span>
+                <span className="ml-4 text-[#00FF85] group-open:rotate-180 transition-transform">▾</span>
+              </summary>
+              <div
+                className="px-6 pb-5 text-[#E8E8E8]/50 leading-relaxed"
+                style={{ fontFamily: "var(--font-space-mono)", fontSize: "12px" }}
+              >
+                {faq.a}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── Trust Bar / Footer CTA ───────────────────────────────────────────────────
 
 function TrustBar() {
@@ -660,6 +722,34 @@ function Footer() {
             TOOLS
           </a>
           <a
+            href="/about"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            ABOUT
+          </a>
+          <a
+            href="/contact"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            CONTACT
+          </a>
+          <a
+            href="/privacy"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            PRIVACY
+          </a>
+          <a
+            href="/terms"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            TERMS
+          </a>
+          <a
             href="https://x.com/3voai"
             target="_blank"
             rel="noopener noreferrer"
@@ -688,6 +778,7 @@ export default function Home() {
       <Products />
       <QuickMatch />
       <Why />
+      <FAQ />
       <TrustBar />
       <Footer />
     </main>
