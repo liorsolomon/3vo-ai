@@ -410,6 +410,12 @@ const PILLARS = [
     body: "Money that moves at the speed of agents. Programmable, borderless, composable — the financial layer for everything we build.",
     href: "https://prompts.3vo.ai",
   },
+  {
+    num: "04",
+    title: "VC MATCH KIT",
+    body: "Curated VC database × cold email templates for pre-seed founders. Find the right investor, write the right email, close the right round.",
+    href: "https://vcmatch.3vo.ai",
+  },
 ];
 
 function Pillars() {
@@ -426,7 +432,7 @@ function Pillars() {
         </div>
 
         {/* 3-column grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1a1a1a]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#1a1a1a]">
           {PILLARS.map((p) => (
             <a
               key={p.num}
