@@ -435,7 +435,7 @@ const PRODUCTS: Product[] = [
     oneliner: "Find your investor, write the email, close the round.",
     status: "live",
     category: "Funding",
-    href: "https://vc-match-kit.vercel.app",
+    href: "https://vcmatch.3vo.ai",
   },
   {
     name: "Agent Reputation Protocol",
