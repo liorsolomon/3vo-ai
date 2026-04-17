@@ -227,7 +227,7 @@ function Hero() {
 function SocialProofBar() {
   const stats = [
     { value: "3,000+", label: "solopreneurs using our tools" },
-    { value: "3", label: "products live today" },
+    { value: "4", label: "products live today" },
     { value: "4.8★", label: "average product rating" },
     { value: "30-day", label: "money-back guarantee" },
   ];
@@ -295,6 +295,15 @@ const PRODUCTS: Product[] = [
     price: "From $49 · Lifetime access",
     cta: "Get Automation Templates",
     href: "https://tools.3vo.ai",
+  },
+  {
+    name: "VC Match Kit",
+    label: "FUNDRAISING",
+    headline: "Find the right investors before you pitch.",
+    body: "A curated toolkit for founders navigating early-stage fundraising — VC targeting frameworks, outreach templates, and pitch checklists built for speed.",
+    price: "Free to start · Pro tier available",
+    cta: "Get VC Match Kit",
+    href: "https://vckit.3vo.ai",
   },
 ];
 
@@ -382,11 +391,11 @@ function Products() {
           className="text-[#E8E8E8]/40 text-[14px] leading-relaxed mb-14 max-w-xl"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          Three live products. All independently useful. All built for the way
+          Four live products. All independently useful. All built for the way
           independent operators actually work.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#1a1a1a]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#1a1a1a]">
           {PRODUCTS.map((product) => (
             <ProductCard key={product.name} product={product} />
           ))}
@@ -413,6 +422,11 @@ const QUICK_MATCH = [
     want: "Stop doing the same tasks manually",
     start: "Automation Templates",
     href: "https://tools.3vo.ai",
+  },
+  {
+    want: "Find and pitch the right VCs faster",
+    start: "VC Match Kit",
+    href: "https://vckit.3vo.ai",
   },
 ];
 

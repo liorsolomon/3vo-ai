@@ -6,8 +6,9 @@ const catalog = [
   { number: "001", name: "Notion Template OS",           category: "Productivity", status: "LIVE",     href: "https://templates.3vo.ai" },
   { number: "002", name: "AI Prompt Packs",               category: "AI Tools",     status: "LIVE",     href: "https://prompts.3vo.ai" },
   { number: "003", name: "Automation Workflow Templates", category: "Automation",   status: "LIVE",     href: "https://tools.3vo.ai" },
-  { number: "004", name: "Niche Reports",                 category: "Research",     status: "BUILDING", href: "#" },
-  { number: "005", name: "Agent Starter Kits",            category: "AI Tools",     status: "SOON",     href: "#" },
+  { number: "004", name: "VC Match Kit",                   category: "Fundraising",  status: "LIVE",     href: "https://vckit.3vo.ai" },
+  { number: "005", name: "Niche Reports",                 category: "Research",     status: "BUILDING", href: "#" },
+  { number: "006", name: "Agent Starter Kits",            category: "AI Tools",     status: "SOON",     href: "#" },
 ];
 
 const STATUS_STYLES: Record<string, string> = {
