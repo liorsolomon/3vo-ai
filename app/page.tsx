@@ -389,94 +389,285 @@ function Thesis() {
   );
 }
 
-// ─── Pillars ──────────────────────────────────────────────────────────────────
+// ─── Portfolio ────────────────────────────────────────────────────────────────
 
-const PILLARS = [
+type ProductStatus = "live" | "coming soon";
+
+interface Product {
+  name: string;
+  oneliner: string;
+  status: ProductStatus;
+  category: string;
+  href: string;
+}
+
+const PRODUCTS: Product[] = [
   {
-    num: "01",
-    title: "AGENTIC INFRASTRUCTURE",
-    body: "Tools that let agents coordinate, earn, and operate. The infrastructure layer for the agent-native internet — built for developers who are already shipping.",
-    href: "https://tools.3vo.ai",
-  },
-  {
-    num: "02",
-    title: "CREATOR MONETIZATION",
-    body: "New revenue streams for people who build in public. Monetize your audience, your content, and your tools — without surrendering your stack to a platform.",
+    name: "Notion Template OS",
+    oneliner: "The complete operating system for Notion power users.",
+    status: "live",
+    category: "Creator Monetization",
     href: "https://templates.3vo.ai",
   },
   {
-    num: "03",
-    title: "CRYPTO RAILS",
-    body: "Money that moves at the speed of agents. Programmable, borderless, composable — the financial layer for everything we build.",
+    name: "AI Prompt Packs",
+    oneliner: "Battle-tested prompts for builders, creators, and founders.",
+    status: "live",
+    category: "AI Tools",
     href: "https://prompts.3vo.ai",
   },
   {
-    num: "04",
-    title: "VC MATCH KIT",
-    body: "Curated VC database × cold email templates for pre-seed founders. Find the right investor, write the right email, close the right round.",
-    href: "https://vcmatch.3vo.ai",
+    name: "Automation Workflow Templates",
+    oneliner: "Drag-and-drop workflows for n8n, Zapier, and Make.",
+    status: "live",
+    category: "Agentic Infrastructure",
+    href: "https://tools.3vo.ai",
+  },
+  {
+    name: "Niche Market Validation Reports",
+    oneliner: "AI-powered market research for indie founders.",
+    status: "live",
+    category: "Research",
+    href: "https://validate.3vo.ai",
+  },
+  {
+    name: "AI VC Match & Outreach Kit",
+    oneliner: "Find your investor, write the email, close the round.",
+    status: "live",
+    category: "Funding",
+    href: "https://vc.3vo.ai",
+  },
+  {
+    name: "Agent Reputation Protocol",
+    oneliner: "On-chain trust scores for autonomous agents.",
+    status: "coming soon",
+    category: "Agentic Infrastructure",
+    href: "#",
+  },
+  {
+    name: "Creator Revenue Dashboard",
+    oneliner: "Track all your passive income streams in one place.",
+    status: "coming soon",
+    category: "Creator Monetization",
+    href: "#",
+  },
+  {
+    name: "Crypto Freelancer Stack",
+    oneliner: "Get paid in stablecoins, anywhere, instantly.",
+    status: "coming soon",
+    category: "Crypto Rails",
+    href: "#",
+  },
+  {
+    name: "AI Content Calendar",
+    oneliner: "Agent-generated content schedules for indie makers.",
+    status: "coming soon",
+    category: "AI Tools",
+    href: "#",
+  },
+  {
+    name: "SaaS Launch Playbook",
+    oneliner: "The exact playbook used to launch 10 products in 12 months.",
+    status: "coming soon",
+    category: "Research",
+    href: "#",
+  },
+  {
+    name: "Web3 Collab Tools",
+    oneliner: "Permissionless collaboration for distributed teams.",
+    status: "coming soon",
+    category: "Crypto Rails",
+    href: "#",
+  },
+  {
+    name: "Audience Monetization Engine",
+    oneliner: "Turn your followers into recurring revenue.",
+    status: "coming soon",
+    category: "Creator Monetization",
+    href: "#",
   },
 ];
 
-function Pillars() {
+const CATEGORIES = [
+  "All",
+  "Agentic Infrastructure",
+  "AI Tools",
+  "Creator Monetization",
+  "Crypto Rails",
+  "Funding",
+  "Research",
+];
+
+function ProductCard({ product }: { product: Product }) {
+  const isLive = product.status === "live";
+  const isClickable = product.href !== "#";
+
+  const cardInner = (
+    <>
+      {/* Top row: category + status badge */}
+      <div className="flex items-center justify-between mb-5">
+        <span
+          className="text-[#E8E8E8]/30 text-[10px] tracking-widest uppercase"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          {product.category}
+        </span>
+        <span
+          className={`text-[10px] tracking-widest px-2 py-0.5 border ${
+            isLive
+              ? "border-[#00FF85]/40 text-[#00FF85]"
+              : "border-[#E8E8E8]/20 text-[#E8E8E8]/40"
+          }`}
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          {isLive ? "● LIVE" : "◌ SOON"}
+        </span>
+      </div>
+
+      {/* Product name */}
+      <h3
+        className="text-[#E8E8E8] text-[18px] leading-tight mb-3"
+        style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+      >
+        {product.name}
+      </h3>
+
+      {/* One-liner */}
+      <p
+        className="text-[#E8E8E8]/55 text-[12px] leading-[1.75] flex-1"
+        style={{ fontFamily: "var(--font-space-mono)" }}
+      >
+        {product.oneliner}
+      </p>
+
+      {/* Footer CTA */}
+      <div className="border-t border-[#1a1a1a] mt-6 pt-5">
+        <span
+          className={`text-xs tracking-widest transition-opacity ${
+            isClickable
+              ? "text-[#00D4FF] group-hover:opacity-70"
+              : "text-[#E8E8E8]/20 cursor-not-allowed"
+          }`}
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          {isClickable ? "EXPLORE ↗" : "COMING SOON"}
+        </span>
+      </div>
+    </>
+  );
+
+  const baseClass =
+    "group bg-[#0A0A0A] border border-[#1e1e1e] p-6 flex flex-col transition-all duration-200 hover:border-[#00FF85]/50 min-h-[220px]";
+
+  if (isClickable) {
+    return (
+      <a
+        href={product.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${baseClass} no-underline`}
+      >
+        {cardInner}
+      </a>
+    );
+  }
+
+  return <div className={baseClass}>{cardInner}</div>;
+}
+
+function Portfolio() {
+  const [query, setQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filtered = PRODUCTS.filter((p) => {
+    const q = query.toLowerCase();
+    const matchesQuery =
+      q === "" ||
+      p.name.toLowerCase().includes(q) ||
+      p.oneliner.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q);
+    const matchesCategory =
+      activeCategory === "All" || p.category === activeCategory;
+    return matchesQuery && matchesCategory;
+  });
+
   return (
     <section className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
         {/* Section label */}
         <div
-          className="text-[#00FF85] text-xs tracking-[0.2em] mb-12 flex items-center gap-3"
+          className="text-[#00FF85] text-xs tracking-[0.2em] mb-10 flex items-center gap-3"
           style={{ fontFamily: "var(--font-share-tech-mono)" }}
         >
           WHAT WE BUILD
           <span className="flex-1 h-px bg-[#00FF85]/30 max-w-[80px]" />
         </div>
 
-        {/* 3-column grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-[#1a1a1a]">
-          {PILLARS.map((p) => (
-            <a
-              key={p.num}
-              href={p.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group bg-[#0A0A0A] border border-[#222222] p-8 transition-all duration-200 hover:border-[#00FF85] block no-underline"
+        {/* Search + filter bar */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-8">
+          {/* Search input */}
+          <div className="relative flex-1 max-w-sm">
+            <span
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-[#00FF85]/50 text-xs select-none"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
             >
-              {/* Number */}
-              <div
-                className="text-[#00FF85] text-xs tracking-widest mb-6"
+              /
+            </span>
+            <input
+              type="text"
+              placeholder="SEARCH PRODUCTS..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="w-full bg-[#111111] border border-[#222222] text-[#E8E8E8] text-xs tracking-widest pl-7 pr-4 py-2.5 outline-none focus:border-[#00FF85]/60 transition-colors placeholder-[#E8E8E8]/20"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            />
+          </div>
+
+          {/* Category filters — horizontal scroll on mobile */}
+          <div className="flex gap-2 overflow-x-auto pb-1 sm:pb-0">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`whitespace-nowrap text-[10px] tracking-widest px-3 py-2 border transition-colors shrink-0 ${
+                  activeCategory === cat
+                    ? "border-[#00FF85] text-[#00FF85] bg-[#00FF85]/5"
+                    : "border-[#222222] text-[#E8E8E8]/40 hover:border-[#E8E8E8]/30 hover:text-[#E8E8E8]/60"
+                }`}
                 style={{ fontFamily: "var(--font-share-tech-mono)" }}
               >
-                {p.num}
-              </div>
-
-              {/* Title */}
-              <h3
-                className="text-[#E8E8E8] text-[22px] leading-tight mb-4"
-                style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
-              >
-                {p.title}
-              </h3>
-
-              {/* Body */}
-              <p
-                className="text-[#E8E8E8]/70 text-[13px] leading-[1.8] mb-8"
-                style={{ fontFamily: "var(--font-space-mono)" }}
-              >
-                {p.body}
-              </p>
-
-              {/* Card CTA */}
-              <div className="border-t border-[#222222] pt-6">
-                <span
-                  className="text-[#00D4FF] text-xs tracking-widest transition-opacity group-hover:opacity-70"
-                  style={{ fontFamily: "var(--font-share-tech-mono)" }}
-                >
-                  EXPLORE ↗
-                </span>
-              </div>
-            </a>
-          ))}
+                {cat === "All" ? "ALL" : cat.toUpperCase()}
+              </button>
+            ))}
+          </div>
         </div>
+
+        {/* Results count */}
+        <div
+          className="text-[#E8E8E8]/25 text-[10px] tracking-widest mb-6"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          {filtered.length} PRODUCT{filtered.length !== 1 ? "S" : ""}
+          {query || activeCategory !== "All" ? " FOUND" : " IN PORTFOLIO"}
+        </div>
+
+        {/* Product grid */}
+        {filtered.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1a1a1a]">
+            {filtered.map((product) => (
+              <ProductCard key={product.name} product={product} />
+            ))}
+          </div>
+        ) : (
+          <div className="border border-[#1e1e1e] py-16 text-center">
+            <p
+              className="text-[#E8E8E8]/30 text-xs tracking-widest"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              NO PRODUCTS MATCH YOUR SEARCH.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -572,7 +763,7 @@ export default function Home() {
       <Hero />
       <SignalBar />
       <Thesis />
-      <Pillars />
+      <Portfolio />
       <FinalCTA onContactOpen={() => setContactOpen(true)} />
       <Footer />
     </main>
