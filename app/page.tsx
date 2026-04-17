@@ -43,7 +43,6 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
         className="bg-[#0A0A0A] border border-[#222222] p-8 w-full max-w-md relative"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close */}
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 text-[#E8E8E8]/40 hover:text-[#E8E8E8]/80 transition-colors text-xs tracking-widest"
@@ -64,7 +63,7 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
               className="text-[#E8E8E8]/50 text-xs tracking-widest mt-3"
               style={{ fontFamily: "var(--font-share-tech-mono)" }}
             >
-              WE'LL BE IN TOUCH.
+              WE&apos;LL BE IN TOUCH.
             </p>
           </div>
         ) : (
@@ -161,7 +160,6 @@ function Nav({ onContactOpen }: { onContactOpen: () => void }) {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between">
-        {/* Wordmark */}
         <span
           className="text-[#00FF85] text-lg tracking-tight"
           style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
@@ -169,14 +167,22 @@ function Nav({ onContactOpen }: { onContactOpen: () => void }) {
           3vo.ai
         </span>
 
-        {/* Single CTA */}
-        <button
-          onClick={onContactOpen}
-          className="text-[#00FF85] text-sm tracking-widest hover:opacity-70 transition-opacity"
-          style={{ fontFamily: "var(--font-share-tech-mono)" }}
-        >
-          CONTACT US ↗
-        </button>
+        <div className="flex items-center gap-6">
+          <a
+            href="#products"
+            className="text-[#E8E8E8]/50 text-sm tracking-widest hover:text-[#E8E8E8]/80 transition-colors hidden sm:block"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            TOOLS
+          </a>
+          <button
+            onClick={onContactOpen}
+            className="text-[#00FF85] text-sm tracking-widest hover:opacity-70 transition-opacity"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            CONTACT US ↗
+          </button>
+        </div>
       </div>
     </nav>
   );
@@ -185,122 +191,238 @@ function Nav({ onContactOpen }: { onContactOpen: () => void }) {
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 function Hero() {
-  const [cursorVisible, setCursorVisible] = useState(true);
-
-  useEffect(() => {
-    // Blink once then stop
-    const timeout = setTimeout(() => setCursorVisible(false), 800);
-    return () => clearTimeout(timeout);
-  }, []);
-
   return (
-    <section className="relative min-h-screen flex items-center px-6 py-24">
-      <div className="mx-auto max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Left: copy */}
-        <div>
-          {/* H1 */}
-          <h1
-            className="text-[clamp(48px,8vw,96px)] leading-[1.0] tracking-tight text-[#E8E8E8] mb-6"
-            style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
-          >
-            New way to internet.
-            <span
-              className="inline-block w-[3px] h-[0.85em] bg-[#00FF85] align-middle ml-1 transition-opacity duration-200"
-              style={{ opacity: cursorVisible ? 1 : 0 }}
-            />
-          </h1>
-
-          {/* Subhead */}
-          <p
-            className="text-[#00D4FF] text-[20px] leading-relaxed mb-10"
-            style={{ fontFamily: "var(--font-space-mono)" }}
-          >
-            The internet is being rebuilt by agents.
-            <br />
-            We are building the agency.
-          </p>
-
-          {/* Hero CTA — non-clickable */}
-          <span
-            className="inline-block border border-[#00FF85] text-[#00FF85] px-8 py-3 text-sm tracking-widest"
-            style={{ fontFamily: "var(--font-share-tech-mono)" }}
-          >
-            ENTER THE PROTOCOL ↗
-          </span>
+    <section className="relative px-6 py-28 lg:py-36">
+      <div className="mx-auto max-w-6xl w-full">
+        <div
+          className="text-[#00FF85] text-xs tracking-[0.2em] mb-6 flex items-center gap-3"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          AI TOOLS FOR INDEPENDENT BUILDERS
+          <span className="h-px bg-[#00FF85]/30 w-12" />
         </div>
 
-        {/* Right: agent counter widget */}
-        <div className="flex justify-center lg:justify-end">
-          <div className="border border-[#222222] p-8 inline-block">
-            <div
-              className="text-[#E8E8E8]/40 text-xs tracking-widest mb-3"
-              style={{ fontFamily: "var(--font-share-tech-mono)" }}
-            >
-              LIVE AGENT COUNT
-            </div>
-            <div
-              className="text-[#00D4FF] text-5xl tabular-nums leading-none"
-              style={{ fontFamily: "var(--font-share-tech-mono)" }}
-            >
-              247
-            </div>
-            <div
-              className="text-[#00FF85] text-xs tracking-widest mt-2"
-              style={{ fontFamily: "var(--font-share-tech-mono)" }}
-            >
-              agents active
-            </div>
-          </div>
+        <h1
+          className="text-[clamp(40px,7vw,88px)] leading-[1.05] tracking-tight text-[#E8E8E8] mb-8 max-w-4xl"
+          style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+        >
+          AI-powered tools for people who build on their own terms.
+        </h1>
+
+        <p
+          className="text-[#E8E8E8]/60 text-[18px] leading-relaxed mb-10 max-w-2xl"
+          style={{ fontFamily: "var(--font-space-mono)" }}
+        >
+          Templates, prompt packs, automation workflows, and market reports —
+          made for solopreneurs, freelancers, and lean teams who want results
+          without the overhead.
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4">
+          <a
+            href="#products"
+            className="inline-block bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            BROWSE THE TOOLKIT ↓
+          </a>
+          <a
+            href="#products"
+            className="inline-block border border-[#E8E8E8]/20 text-[#E8E8E8]/60 px-8 py-4 text-sm tracking-widest transition-colors hover:border-[#E8E8E8]/40 hover:text-[#E8E8E8]/80"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            SEE WHAT&apos;S LIVE ↗
+          </a>
         </div>
       </div>
     </section>
   );
 }
 
-// ─── Signal Bar ───────────────────────────────────────────────────────────────
+// ─── Social Proof Bar ─────────────────────────────────────────────────────────
 
-const SIGNAL_ITEMS = [
-  "AGENTIC AI",
-  "CRYPTO NATIVE",
-  "CREATOR ECONOMY",
-  "SHIPS FAST",
-  "LEAN TEAM",
-  "REAL REVENUE",
-];
-
-function SignalBar() {
-  const items = [...SIGNAL_ITEMS, ...SIGNAL_ITEMS]; // duplicate for seamless loop
+function SocialProofBar() {
+  const stats = [
+    { value: "3,000+", label: "solopreneurs using our tools" },
+    { value: "5", label: "products live today" },
+    { value: "4.8★", label: "average product rating" },
+    { value: "30-day", label: "money-back guarantee" },
+  ];
 
   return (
-    <div className="bg-[#111111] overflow-hidden py-3 group">
-      <div
-        className="flex whitespace-nowrap animate-marquee group-hover:[animation-play-state:paused]"
-      >
-        {items.map((item, i) => (
-          <span
-            key={i}
-            className="text-[#7B2FBE] text-sm tracking-widest mx-6"
-            style={{ fontFamily: "var(--font-share-tech-mono)" }}
-          >
-            —— {item}
-          </span>
-        ))}
-        {/* duplicate again for truly seamless loop */}
-        {items.map((item, i) => (
-          <span
-            key={`dup-${i}`}
-            className="text-[#7B2FBE] text-sm tracking-widest mx-6"
-            style={{ fontFamily: "var(--font-share-tech-mono)" }}
-          >
-            —— {item}
-          </span>
+    <div className="bg-[#111111] border-y border-[#1e1e1e] px-6 py-8">
+      <div className="mx-auto max-w-6xl grid grid-cols-2 lg:grid-cols-4 gap-8">
+        {stats.map((s) => (
+          <div key={s.label} className="text-center">
+            <div
+              className="text-[#00FF85] text-2xl mb-1"
+              style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+            >
+              {s.value}
+            </div>
+            <div
+              className="text-[#E8E8E8]/40 text-[11px] tracking-widest"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              {s.label.toUpperCase()}
+            </div>
+          </div>
         ))}
       </div>
     </div>
   );
 }
 
-// ─── Thesis ───────────────────────────────────────────────────────────────────
+// ─── Products ─────────────────────────────────────────────────────────────────
+
+interface Product {
+  name: string;
+  tagline: string;
+  description: string;
+  cta: string;
+  href: string;
+  category: string;
+}
+
+const PRODUCTS: Product[] = [
+  {
+    name: "Notion Template OS",
+    tagline: "Your complete operating system in Notion.",
+    description:
+      "Pre-built dashboards, project trackers, and habit systems — ready to use on day one. No blank-page anxiety.",
+    cta: "GET INSTANT ACCESS",
+    href: "https://templates.3vo.ai",
+    category: "PRODUCTIVITY",
+  },
+  {
+    name: "AI Prompt Packs",
+    tagline: "Prompts that actually work — built for your role.",
+    description:
+      "Role-specific prompt libraries for founders, marketers, and freelancers. Skip the trial-and-error, get outputs that ship.",
+    cta: "EXPLORE PACKS",
+    href: "https://prompts.3vo.ai",
+    category: "AI TOOLS",
+  },
+  {
+    name: "Automation Workflow Templates",
+    tagline: "Automate the boring stuff in minutes, not days.",
+    description:
+      "Drag-and-drop workflows for n8n, Zapier, and Make. Start with working templates, not blank screens.",
+    cta: "BROWSE WORKFLOWS",
+    href: "https://tools.3vo.ai",
+    category: "AUTOMATION",
+  },
+  {
+    name: "Niche Market Reports",
+    tagline: "AI-powered market research before you build.",
+    description:
+      "Full niche validation reports — demand analysis, competitor landscape, pricing benchmarks — delivered in 48 hours.",
+    cta: "ORDER YOUR REPORT",
+    href: "https://validate.3vo.ai",
+    category: "RESEARCH",
+  },
+  {
+    name: "VC Match & Outreach Kit",
+    tagline: "Find your investor. Write the email. Close the round.",
+    description:
+      "Curated investor matches filtered by stage, sector, and check size. Includes outreach templates and follow-up sequences.",
+    cta: "FIND INVESTORS",
+    href: "https://vc.3vo.ai",
+    category: "FUNDING",
+  },
+];
+
+function ProductCard({ product }: { product: Product }) {
+  return (
+    <a
+      href={product.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group bg-[#0A0A0A] border border-[#1e1e1e] p-7 flex flex-col transition-all duration-200 hover:border-[#00FF85]/50 no-underline"
+    >
+      {/* Category */}
+      <div
+        className="text-[#00FF85]/60 text-[10px] tracking-widest mb-5"
+        style={{ fontFamily: "var(--font-share-tech-mono)" }}
+      >
+        {product.category}
+      </div>
+
+      {/* Name */}
+      <h3
+        className="text-[#E8E8E8] text-[22px] leading-tight mb-2"
+        style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+      >
+        {product.name}
+      </h3>
+
+      {/* Tagline */}
+      <p
+        className="text-[#00D4FF] text-[13px] leading-snug mb-4"
+        style={{ fontFamily: "var(--font-space-mono)" }}
+      >
+        {product.tagline}
+      </p>
+
+      {/* Description */}
+      <p
+        className="text-[#E8E8E8]/50 text-[13px] leading-[1.75] flex-1 mb-6"
+        style={{ fontFamily: "var(--font-space-mono)" }}
+      >
+        {product.description}
+      </p>
+
+      {/* CTA */}
+      <div className="border-t border-[#1a1a1a] pt-5">
+        <span
+          className="text-[#00FF85] text-xs tracking-widest group-hover:opacity-70 transition-opacity"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          {product.cta} ↗
+        </span>
+      </div>
+    </a>
+  );
+}
+
+function Products() {
+  return (
+    <section id="products" className="px-6 py-28">
+      <div className="mx-auto max-w-6xl">
+        <div
+          className="text-[#00FF85] text-xs tracking-[0.2em] mb-4 flex items-center gap-3"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          THE TOOLKIT
+          <span className="flex-1 h-px bg-[#00FF85]/30 max-w-[80px]" />
+        </div>
+
+        <h2
+          className="text-[clamp(28px,4vw,48px)] leading-[1.1] tracking-tight text-[#E8E8E8] mb-3"
+          style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+        >
+          Tools that ship. Products that pay.
+        </h2>
+
+        <p
+          className="text-[#E8E8E8]/40 text-[14px] leading-relaxed mb-14 max-w-xl"
+          style={{ fontFamily: "var(--font-space-mono)" }}
+        >
+          Five live products. All independently useful. All built for the way
+          independent operators actually work.
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1a1a1a]">
+          {PRODUCTS.map((product) => (
+            <ProductCard key={product.name} product={product} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Why 3vo.ai ───────────────────────────────────────────────────────────────
 
 function useRevealOnScroll() {
   const ref = useRef<HTMLDivElement>(null);
@@ -316,7 +438,7 @@ function useRevealOnScroll() {
           observer.disconnect();
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.2 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -325,349 +447,70 @@ function useRevealOnScroll() {
   return { ref, revealed };
 }
 
-function Thesis() {
+const WHY_POINTS = [
+  {
+    title: "Built lean.",
+    body: "No bloat, no filler. Every product does one thing well and ships fast. If it doesn't save you time or make you money, it doesn't make the cut.",
+  },
+  {
+    title: "Priced honestly.",
+    body: "Flat one-time prices. No subscriptions, no paywalled features, no upsell traps. You pay once and it's yours.",
+  },
+  {
+    title: "Made to work.",
+    body: "Every template, prompt, and workflow is tested by real operators before it ships. We don't sell demos — we sell tools we use ourselves.",
+  },
+];
+
+function Why() {
   const { ref, revealed } = useRevealOnScroll();
 
   return (
-    <section ref={ref} className="px-6 py-28">
-      <div className="mx-auto max-w-4xl">
-        {/* Section label */}
-        <div
-          className="text-[#00FF85] text-xs tracking-[0.2em] mb-8 flex items-center gap-3"
-          style={{ fontFamily: "var(--font-share-tech-mono)" }}
-        >
-          WHAT WE BELIEVE
-          <span className="flex-1 h-px bg-[#00FF85]/30 max-w-[80px]" />
-        </div>
-
-        {/* Statement block 1 */}
-        <div
-          className={`mb-10 transition-all duration-700 ${revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-          style={{ transitionDelay: "0ms" }}
-        >
-          <p
-            className="text-[clamp(28px,4vw,48px)] leading-[1.15] tracking-tight text-[#E8E8E8]"
-            style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
-          >
-            Most AI companies are building demos.
-            <br />
-            We build things that make money.
-          </p>
-        </div>
-
-        {/* Statement block 2 */}
-        <div
-          className={`mb-12 transition-all duration-700 ${revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-          style={{ transitionDelay: "150ms" }}
-        >
-          <p
-            className="text-[clamp(28px,4vw,48px)] leading-[1.15] tracking-tight text-[#E8E8E8]"
-            style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
-          >
-            The agentic internet is not coming.
-            <br />
-            It is here. We are already inside it.
-          </p>
-        </div>
-
-        {/* Supporting paragraph */}
-        <div
-          className={`transition-all duration-700 ${revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-          style={{ transitionDelay: "300ms" }}
-        >
-          <p
-            className="text-[14px] leading-[1.8] text-[#E8E8E8]/60 max-w-2xl"
-            style={{ fontFamily: "var(--font-space-mono)" }}
-          >
-            3vo.ai is a lean studio building at the intersection of agents, crypto, and the creator
-            economy. We ship products that generate revenue, then iterate. No pitch decks. No
-            vaporware. No waiting for the future to arrive.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Portfolio ────────────────────────────────────────────────────────────────
-
-type ProductStatus = "live" | "coming soon";
-
-interface Product {
-  name: string;
-  oneliner: string;
-  status: ProductStatus;
-  category: string;
-  href: string;
-}
-
-const PRODUCTS: Product[] = [
-  {
-    name: "Notion Template OS",
-    oneliner: "The complete operating system for Notion power users.",
-    status: "live",
-    category: "Creator Monetization",
-    href: "https://templates.3vo.ai",
-  },
-  {
-    name: "AI Prompt Packs",
-    oneliner: "Battle-tested prompts for builders, creators, and founders.",
-    status: "live",
-    category: "AI Tools",
-    href: "https://prompts.3vo.ai",
-  },
-  {
-    name: "Automation Workflow Templates",
-    oneliner: "Drag-and-drop workflows for n8n, Zapier, and Make.",
-    status: "live",
-    category: "Agentic Infrastructure",
-    href: "https://tools.3vo.ai",
-  },
-  {
-    name: "Niche Market Validation Reports",
-    oneliner: "AI-powered market research for indie founders.",
-    status: "live",
-    category: "Research",
-    href: "https://validate.3vo.ai",
-  },
-  {
-    name: "AI VC Match & Outreach Kit",
-    oneliner: "Find your investor, write the email, close the round.",
-    status: "live",
-    category: "Funding",
-    href: "https://vc.3vo.ai",
-  },
-  {
-    name: "Agent Reputation Protocol",
-    oneliner: "On-chain trust scores for autonomous agents.",
-    status: "coming soon",
-    category: "Agentic Infrastructure",
-    href: "#",
-  },
-  {
-    name: "Creator Revenue Dashboard",
-    oneliner: "Track all your passive income streams in one place.",
-    status: "coming soon",
-    category: "Creator Monetization",
-    href: "#",
-  },
-  {
-    name: "Crypto Freelancer Stack",
-    oneliner: "Get paid in stablecoins, anywhere, instantly.",
-    status: "coming soon",
-    category: "Crypto Rails",
-    href: "#",
-  },
-  {
-    name: "AI Content Calendar",
-    oneliner: "Agent-generated content schedules for indie makers.",
-    status: "coming soon",
-    category: "AI Tools",
-    href: "#",
-  },
-  {
-    name: "SaaS Launch Playbook",
-    oneliner: "The exact playbook used to launch 10 products in 12 months.",
-    status: "coming soon",
-    category: "Research",
-    href: "#",
-  },
-  {
-    name: "Web3 Collab Tools",
-    oneliner: "Permissionless collaboration for distributed teams.",
-    status: "coming soon",
-    category: "Crypto Rails",
-    href: "#",
-  },
-  {
-    name: "Audience Monetization Engine",
-    oneliner: "Turn your followers into recurring revenue.",
-    status: "coming soon",
-    category: "Creator Monetization",
-    href: "#",
-  },
-];
-
-const CATEGORIES = [
-  "All",
-  "Agentic Infrastructure",
-  "AI Tools",
-  "Creator Monetization",
-  "Crypto Rails",
-  "Funding",
-  "Research",
-];
-
-function ProductCard({ product }: { product: Product }) {
-  const isLive = product.status === "live";
-  const isClickable = product.href !== "#";
-
-  const cardInner = (
-    <>
-      {/* Top row: category + status badge */}
-      <div className="flex items-center justify-between mb-5">
-        <span
-          className="text-[#E8E8E8]/30 text-[10px] tracking-widest uppercase"
-          style={{ fontFamily: "var(--font-share-tech-mono)" }}
-        >
-          {product.category}
-        </span>
-        <span
-          className={`text-[10px] tracking-widest px-2 py-0.5 border ${
-            isLive
-              ? "border-[#00FF85]/40 text-[#00FF85]"
-              : "border-[#E8E8E8]/20 text-[#E8E8E8]/40"
-          }`}
-          style={{ fontFamily: "var(--font-share-tech-mono)" }}
-        >
-          {isLive ? "● LIVE" : "◌ SOON"}
-        </span>
-      </div>
-
-      {/* Product name */}
-      <h3
-        className="text-[#E8E8E8] text-[18px] leading-tight mb-3"
-        style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
-      >
-        {product.name}
-      </h3>
-
-      {/* One-liner */}
-      <p
-        className="text-[#E8E8E8]/55 text-[12px] leading-[1.75] flex-1"
-        style={{ fontFamily: "var(--font-space-mono)" }}
-      >
-        {product.oneliner}
-      </p>
-
-      {/* Footer CTA */}
-      <div className="border-t border-[#1a1a1a] mt-6 pt-5">
-        <span
-          className={`text-xs tracking-widest transition-opacity ${
-            isClickable
-              ? "text-[#00D4FF] group-hover:opacity-70"
-              : "text-[#E8E8E8]/20 cursor-not-allowed"
-          }`}
-          style={{ fontFamily: "var(--font-share-tech-mono)" }}
-        >
-          {isClickable ? "EXPLORE ↗" : "COMING SOON"}
-        </span>
-      </div>
-    </>
-  );
-
-  const baseClass =
-    "group bg-[#0A0A0A] border border-[#1e1e1e] p-6 flex flex-col transition-all duration-200 hover:border-[#00FF85]/50 min-h-[220px]";
-
-  if (isClickable) {
-    return (
-      <a
-        href={product.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`${baseClass} no-underline`}
-      >
-        {cardInner}
-      </a>
-    );
-  }
-
-  return <div className={baseClass}>{cardInner}</div>;
-}
-
-function Portfolio() {
-  const [query, setQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const filtered = PRODUCTS.filter((p) => {
-    const q = query.toLowerCase();
-    const matchesQuery =
-      q === "" ||
-      p.name.toLowerCase().includes(q) ||
-      p.oneliner.toLowerCase().includes(q) ||
-      p.category.toLowerCase().includes(q);
-    const matchesCategory =
-      activeCategory === "All" || p.category === activeCategory;
-    return matchesQuery && matchesCategory;
-  });
-
-  return (
-    <section className="px-6 py-28">
+    <section ref={ref} className="bg-[#111111] px-6 py-28">
       <div className="mx-auto max-w-6xl">
-        {/* Section label */}
         <div
-          className="text-[#00FF85] text-xs tracking-[0.2em] mb-10 flex items-center gap-3"
+          className="text-[#00FF85] text-xs tracking-[0.2em] mb-4 flex items-center gap-3"
           style={{ fontFamily: "var(--font-share-tech-mono)" }}
         >
-          WHAT WE BUILD
+          WHY 3VO.AI
           <span className="flex-1 h-px bg-[#00FF85]/30 max-w-[80px]" />
         </div>
 
-        {/* Search + filter bar */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          {/* Search input */}
-          <div className="relative flex-1 max-w-sm">
-            <span
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-[#00FF85]/50 text-xs select-none"
-              style={{ fontFamily: "var(--font-share-tech-mono)" }}
-            >
-              /
-            </span>
-            <input
-              type="text"
-              placeholder="SEARCH PRODUCTS..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-[#111111] border border-[#222222] text-[#E8E8E8] text-xs tracking-widest pl-7 pr-4 py-2.5 outline-none focus:border-[#00FF85]/60 transition-colors placeholder-[#E8E8E8]/20"
-              style={{ fontFamily: "var(--font-share-tech-mono)" }}
-            />
-          </div>
-
-          {/* Category filters — horizontal scroll on mobile */}
-          <div className="flex gap-2 overflow-x-auto pb-1 sm:pb-0">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`whitespace-nowrap text-[10px] tracking-widest px-3 py-2 border transition-colors shrink-0 ${
-                  activeCategory === cat
-                    ? "border-[#00FF85] text-[#00FF85] bg-[#00FF85]/5"
-                    : "border-[#222222] text-[#E8E8E8]/40 hover:border-[#E8E8E8]/30 hover:text-[#E8E8E8]/60"
-                }`}
-                style={{ fontFamily: "var(--font-share-tech-mono)" }}
-              >
-                {cat === "All" ? "ALL" : cat.toUpperCase()}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Results count */}
-        <div
-          className="text-[#E8E8E8]/25 text-[10px] tracking-widest mb-6"
-          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        <h2
+          className="text-[clamp(28px,4vw,48px)] leading-[1.1] tracking-tight text-[#E8E8E8] mb-14"
+          style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
         >
-          {filtered.length} PRODUCT{filtered.length !== 1 ? "S" : ""}
-          {query || activeCategory !== "All" ? " FOUND" : " IN PORTFOLIO"}
-        </div>
+          Built lean. Priced honestly.
+          <br />
+          Made to work.
+        </h2>
 
-        {/* Product grid */}
-        {filtered.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1a1a1a]">
-            {filtered.map((product) => (
-              <ProductCard key={product.name} product={product} />
-            ))}
-          </div>
-        ) : (
-          <div className="border border-[#1e1e1e] py-16 text-center">
-            <p
-              className="text-[#E8E8E8]/30 text-xs tracking-widest"
-              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {WHY_POINTS.map((point, i) => (
+            <div
+              key={point.title}
+              className={`transition-all duration-700 ${
+                revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+              style={{ transitionDelay: `${i * 120}ms` }}
             >
-              NO PRODUCTS MATCH YOUR SEARCH.
-            </p>
-          </div>
-        )}
+              <div className="border-l-2 border-[#00FF85] pl-5">
+                <h3
+                  className="text-[#E8E8E8] text-[18px] mb-3"
+                  style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+                >
+                  {point.title}
+                </h3>
+                <p
+                  className="text-[#E8E8E8]/50 text-[13px] leading-[1.8]"
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                >
+                  {point.body}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -677,35 +520,40 @@ function Portfolio() {
 
 function FinalCTA({ onContactOpen }: { onContactOpen: () => void }) {
   return (
-    <section className="px-6 py-[160px]">
+    <section className="px-6 py-[120px]">
       <div className="mx-auto max-w-5xl">
         <h2
-          className="text-[clamp(36px,5.5vw,64px)] leading-[1.1] tracking-tight text-[#E8E8E8] mb-12"
+          className="text-[clamp(32px,5vw,60px)] leading-[1.1] tracking-tight text-[#E8E8E8] mb-6"
           style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
         >
-          Ready to build inside
+          Ready to build smarter?
           <br />
-          the new internet?
+          Start with any tool.
         </h2>
 
+        <p
+          className="text-[#E8E8E8]/40 text-[14px] leading-relaxed mb-10 max-w-lg"
+          style={{ fontFamily: "var(--font-space-mono)" }}
+        >
+          Every product ships with a 30-day money-back guarantee. No questions asked.
+          Pick the tool that fits your next step and get moving.
+        </p>
+
         <div className="flex flex-col sm:flex-row gap-4">
-          {/* Primary CTA */}
-          <button
-            onClick={onContactOpen}
+          <a
+            href="#products"
             className="inline-block bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
-            CONTACT US ↗
-          </button>
-
-          {/* Secondary CTA */}
-          <a
-            href="/thesis"
-            className="inline-block border border-[#00D4FF] text-[#00D4FF] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-70"
+            BROWSE THE TOOLKIT ↓
+          </a>
+          <button
+            onClick={onContactOpen}
+            className="inline-block border border-[#E8E8E8]/20 text-[#E8E8E8]/60 px-8 py-4 text-sm tracking-widest transition-colors hover:border-[#E8E8E8]/40 hover:text-[#E8E8E8]/80"
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
-            READ THE THESIS ↗
-          </a>
+            GET IN TOUCH ↗
+          </button>
         </div>
       </div>
     </section>
@@ -718,7 +566,6 @@ function Footer() {
   return (
     <footer className="px-6 py-8 border-t border-[#1a1a1a]">
       <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        {/* Left: wordmark + copyright */}
         <div>
           <span
             className="text-[#E8E8E8]/40 text-xs tracking-widest"
@@ -730,12 +577,38 @@ function Footer() {
             className="text-[#E8E8E8]/40 text-xs tracking-widest mt-1"
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
-            © 2026 3vo.ai
+            © 2026 3vo.ai — The 3vo.ai team
           </p>
         </div>
 
-        {/* Right: social icons */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
+          <a
+            href="https://templates.3vo.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            TEMPLATES
+          </a>
+          <a
+            href="https://prompts.3vo.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            PROMPTS
+          </a>
+          <a
+            href="https://tools.3vo.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            TOOLS
+          </a>
           <a
             href="https://x.com/3voai"
             target="_blank"
@@ -761,9 +634,9 @@ export default function Home() {
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <Nav onContactOpen={() => setContactOpen(true)} />
       <Hero />
-      <SignalBar />
-      <Thesis />
-      <Portfolio />
+      <SocialProofBar />
+      <Products />
+      <Why />
       <FinalCTA onContactOpen={() => setContactOpen(true)} />
       <Footer />
     </main>
