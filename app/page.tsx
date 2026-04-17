@@ -173,7 +173,7 @@ function Nav({ onContactOpen }: { onContactOpen: () => void }) {
             className="text-[#E8E8E8]/50 text-sm tracking-widest hover:text-[#E8E8E8]/80 transition-colors hidden sm:block"
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
-            TOOLS
+            PRODUCTS ↓
           </a>
           <button
             onClick={onContactOpen}
@@ -194,46 +194,28 @@ function Hero() {
   return (
     <section className="relative px-6 py-28 lg:py-36">
       <div className="mx-auto max-w-6xl w-full">
-        <div
-          className="text-[#00FF85] text-xs tracking-[0.2em] mb-6 flex items-center gap-3"
-          style={{ fontFamily: "var(--font-share-tech-mono)" }}
-        >
-          AI TOOLS FOR INDEPENDENT BUILDERS
-          <span className="h-px bg-[#00FF85]/30 w-12" />
-        </div>
-
         <h1
           className="text-[clamp(40px,7vw,88px)] leading-[1.05] tracking-tight text-[#E8E8E8] mb-8 max-w-4xl"
           style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
         >
-          AI-powered tools for people who build on their own terms.
+          Three tools. One ecosystem. Built to earn passively.
         </h1>
 
         <p
           className="text-[#E8E8E8]/60 text-[18px] leading-relaxed mb-10 max-w-2xl"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          Templates, prompt packs, automation workflows, and market reports —
-          made for solopreneurs, freelancers, and lean teams who want results
-          without the overhead.
+          Digital products for freelancers and creators who want to generate income
+          &mdash; without adding more hours to their week.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <a
-            href="#products"
-            className="inline-block bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
-            style={{ fontFamily: "var(--font-share-tech-mono)" }}
-          >
-            BROWSE THE TOOLKIT ↓
-          </a>
-          <a
-            href="#products"
-            className="inline-block border border-[#E8E8E8]/20 text-[#E8E8E8]/60 px-8 py-4 text-sm tracking-widest transition-colors hover:border-[#E8E8E8]/40 hover:text-[#E8E8E8]/80"
-            style={{ fontFamily: "var(--font-share-tech-mono)" }}
-          >
-            SEE WHAT&apos;S LIVE ↗
-          </a>
-        </div>
+        <a
+          href="#products"
+          className="inline-block bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          EXPLORE THE PRODUCTS ↓
+        </a>
       </div>
     </section>
   );
@@ -244,7 +226,7 @@ function Hero() {
 function SocialProofBar() {
   const stats = [
     { value: "3,000+", label: "solopreneurs using our tools" },
-    { value: "5", label: "products live today" },
+    { value: "3", label: "products live today" },
     { value: "4.8★", label: "average product rating" },
     { value: "30-day", label: "money-back guarantee" },
   ];
@@ -277,58 +259,41 @@ function SocialProofBar() {
 
 interface Product {
   name: string;
-  tagline: string;
-  description: string;
+  label: string;
+  headline: string;
+  body: string;
+  price: string;
   cta: string;
   href: string;
-  category: string;
 }
 
 const PRODUCTS: Product[] = [
   {
     name: "Notion Template OS",
-    tagline: "Your complete operating system in Notion.",
-    description:
-      "Pre-built dashboards, project trackers, and habit systems — ready to use on day one. No blank-page anxiety.",
-    cta: "GET INSTANT ACCESS",
+    label: "ORGANIZATION",
+    headline: "Your freelance business, finally in one place.",
+    body: "Six interconnected systems in a single Notion workspace. Client hub, project tracker, invoices, goals, and weekly reviews — set up in minutes, not days.",
+    price: "$39 · One-time payment · Lifetime updates",
+    cta: "Get Notion Template OS",
     href: "https://templates.3vo.ai",
-    category: "PRODUCTIVITY",
   },
   {
     name: "AI Prompt Packs",
-    tagline: "Prompts that actually work — built for your role.",
-    description:
-      "Role-specific prompt libraries for founders, marketers, and freelancers. Skip the trial-and-error, get outputs that ship.",
-    cta: "EXPLORE PACKS",
+    label: "PRODUCTIVITY",
+    headline: "Stop fighting AI for useful output.",
+    body: "25–50 battle-tested prompts built for your exact role. Marketing, sales, real estate, content creation — get results in minutes, not hours.",
+    price: "From $19 · No subscription",
+    cta: "Get AI Prompt Packs",
     href: "https://prompts.3vo.ai",
-    category: "AI TOOLS",
   },
   {
     name: "Automation Workflow Templates",
-    tagline: "Automate the boring stuff in minutes, not days.",
-    description:
-      "Drag-and-drop workflows for n8n, Zapier, and Make. Start with working templates, not blank screens.",
-    cta: "BROWSE WORKFLOWS",
+    label: "AUTOMATION",
+    headline: "Automate your business without writing a line of code.",
+    body: "Ready-to-deploy n8n and Make templates that connect your tools and eliminate repetitive tasks. Import, connect, run.",
+    price: "From $49 · Lifetime access",
+    cta: "Get Automation Templates",
     href: "https://tools.3vo.ai",
-    category: "AUTOMATION",
-  },
-  {
-    name: "Niche Market Reports",
-    tagline: "AI-powered market research before you build.",
-    description:
-      "Full niche validation reports — demand analysis, competitor landscape, pricing benchmarks — delivered in 48 hours.",
-    cta: "ORDER YOUR REPORT",
-    href: "https://validate.3vo.ai",
-    category: "RESEARCH",
-  },
-  {
-    name: "VC Match & Outreach Kit",
-    tagline: "Find your investor. Write the email. Close the round.",
-    description:
-      "Curated investor matches filtered by stage, sector, and check size. Includes outreach templates and follow-up sequences.",
-    cta: "FIND INVESTORS",
-    href: "https://vc.3vo.ai",
-    category: "FUNDING",
   },
 ];
 
@@ -340,12 +305,12 @@ function ProductCard({ product }: { product: Product }) {
       rel="noopener noreferrer"
       className="group bg-[#0A0A0A] border border-[#1e1e1e] p-7 flex flex-col transition-all duration-200 hover:border-[#00FF85]/50 no-underline"
     >
-      {/* Category */}
+      {/* Label */}
       <div
         className="text-[#00FF85]/60 text-[10px] tracking-widest mb-5"
         style={{ fontFamily: "var(--font-share-tech-mono)" }}
       >
-        {product.category}
+        {product.label}
       </div>
 
       {/* Name */}
@@ -356,21 +321,29 @@ function ProductCard({ product }: { product: Product }) {
         {product.name}
       </h3>
 
-      {/* Tagline */}
+      {/* Headline */}
       <p
         className="text-[#00D4FF] text-[13px] leading-snug mb-4"
         style={{ fontFamily: "var(--font-space-mono)" }}
       >
-        {product.tagline}
+        {product.headline}
       </p>
 
-      {/* Description */}
+      {/* Body */}
       <p
         className="text-[#E8E8E8]/50 text-[13px] leading-[1.75] flex-1 mb-6"
         style={{ fontFamily: "var(--font-space-mono)" }}
       >
-        {product.description}
+        {product.body}
       </p>
+
+      {/* Price */}
+      <div
+        className="text-[#E8E8E8]/40 text-[11px] tracking-wide mb-5"
+        style={{ fontFamily: "var(--font-share-tech-mono)" }}
+      >
+        {product.price}
+      </div>
 
       {/* CTA */}
       <div className="border-t border-[#1a1a1a] pt-5">
@@ -401,20 +374,102 @@ function Products() {
           className="text-[clamp(28px,4vw,48px)] leading-[1.1] tracking-tight text-[#E8E8E8] mb-3"
           style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
         >
-          Tools that ship. Products that pay.
+          Pick the tool that fits where you are right now.
         </h2>
 
         <p
           className="text-[#E8E8E8]/40 text-[14px] leading-relaxed mb-14 max-w-xl"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          Five live products. All independently useful. All built for the way
+          Three live products. All independently useful. All built for the way
           independent operators actually work.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1a1a1a]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#1a1a1a]">
           {PRODUCTS.map((product) => (
             <ProductCard key={product.name} product={product} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─── Quick Match ──────────────────────────────────────────────────────────────
+
+const QUICK_MATCH = [
+  {
+    want: "Get your freelance operations organized",
+    start: "Notion Template OS",
+    href: "https://templates.3vo.ai",
+  },
+  {
+    want: "Make AI work better for your workflow",
+    start: "AI Prompt Packs",
+    href: "https://prompts.3vo.ai",
+  },
+  {
+    want: "Stop doing the same tasks manually",
+    start: "Automation Templates",
+    href: "https://tools.3vo.ai",
+  },
+];
+
+function QuickMatch() {
+  return (
+    <section className="bg-[#111111] px-6 py-20">
+      <div className="mx-auto max-w-6xl">
+        <div
+          className="text-[#00FF85] text-xs tracking-[0.2em] mb-4 flex items-center gap-3"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          QUICK MATCH
+          <span className="flex-1 h-px bg-[#00FF85]/30 max-w-[80px]" />
+        </div>
+
+        <h2
+          className="text-[clamp(24px,3.5vw,40px)] leading-[1.15] tracking-tight text-[#E8E8E8] mb-10"
+          style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+        >
+          Not sure where to start?
+        </h2>
+
+        <div className="border border-[#1e1e1e] divide-y divide-[#1e1e1e]">
+          <div className="grid grid-cols-2 bg-[#0A0A0A] px-6 py-3">
+            <span
+              className="text-[#E8E8E8]/30 text-[10px] tracking-widest"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              IF YOU WANT TO…
+            </span>
+            <span
+              className="text-[#E8E8E8]/30 text-[10px] tracking-widest"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              START HERE
+            </span>
+          </div>
+          {QUICK_MATCH.map((row) => (
+            <div
+              key={row.want}
+              className="grid grid-cols-2 px-6 py-5 hover:bg-[#0A0A0A]/60 transition-colors"
+            >
+              <span
+                className="text-[#E8E8E8]/60 text-[13px] leading-relaxed pr-4"
+                style={{ fontFamily: "var(--font-space-mono)" }}
+              >
+                {row.want}
+              </span>
+              <a
+                href={row.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#00FF85] text-[13px] tracking-wide hover:opacity-70 transition-opacity no-underline"
+                style={{ fontFamily: "var(--font-share-tech-mono)" }}
+              >
+                → {row.start}
+              </a>
+            </div>
           ))}
         </div>
       </div>
@@ -466,7 +521,7 @@ function Why() {
   const { ref, revealed } = useRevealOnScroll();
 
   return (
-    <section ref={ref} className="bg-[#111111] px-6 py-28">
+    <section ref={ref} className="px-6 py-28">
       <div className="mx-auto max-w-6xl">
         <div
           className="text-[#00FF85] text-xs tracking-[0.2em] mb-4 flex items-center gap-3"
@@ -516,45 +571,40 @@ function Why() {
   );
 }
 
-// ─── Final CTA ────────────────────────────────────────────────────────────────
+// ─── Trust Bar / Footer CTA ───────────────────────────────────────────────────
 
-function FinalCTA({ onContactOpen }: { onContactOpen: () => void }) {
+function TrustBar() {
   return (
-    <section className="px-6 py-[120px]">
-      <div className="mx-auto max-w-5xl">
-        <h2
-          className="text-[clamp(32px,5vw,60px)] leading-[1.1] tracking-tight text-[#E8E8E8] mb-6"
+    <section className="bg-[#111111] border-t border-[#1a1a1a] px-6 py-20">
+      <div className="mx-auto max-w-5xl text-center">
+        <p
+          className="text-[#E8E8E8] text-[clamp(20px,3vw,32px)] leading-[1.3] tracking-tight mb-4"
           style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
         >
-          Ready to build smarter?
-          <br />
-          Start with any tool.
-        </h2>
-
-        <p
-          className="text-[#E8E8E8]/40 text-[14px] leading-relaxed mb-10 max-w-lg"
-          style={{ fontFamily: "var(--font-space-mono)" }}
-        >
-          Every product ships with a 30-day money-back guarantee. No questions asked.
-          Pick the tool that fits your next step and get moving.
+          All three products. One-time payments. No subscriptions. No fluff.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4">
-          <a
-            href="#products"
-            className="inline-block bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
-            style={{ fontFamily: "var(--font-share-tech-mono)" }}
-          >
-            BROWSE THE TOOLKIT ↓
-          </a>
-          <button
-            onClick={onContactOpen}
-            className="inline-block border border-[#E8E8E8]/20 text-[#E8E8E8]/60 px-8 py-4 text-sm tracking-widest transition-colors hover:border-[#E8E8E8]/40 hover:text-[#E8E8E8]/80"
-            style={{ fontFamily: "var(--font-share-tech-mono)" }}
-          >
-            GET IN TOUCH ↗
-          </button>
-        </div>
+        <p
+          className="text-[#E8E8E8]/50 text-[14px] leading-relaxed mb-8 max-w-lg mx-auto"
+          style={{ fontFamily: "var(--font-space-mono)" }}
+        >
+          Built for independents who want leverage, not more software to manage.
+        </p>
+
+        <a
+          href="#products"
+          className="inline-block bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          EXPLORE THE PRODUCTS ↑
+        </a>
+
+        <p
+          className="text-[#E8E8E8]/30 text-xs tracking-widest mt-10"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          &mdash; The 3vo.ai team
+        </p>
       </div>
     </section>
   );
@@ -636,8 +686,9 @@ export default function Home() {
       <Hero />
       <SocialProofBar />
       <Products />
+      <QuickMatch />
       <Why />
-      <FinalCTA onContactOpen={() => setContactOpen(true)} />
+      <TrustBar />
       <Footer />
     </main>
   );
