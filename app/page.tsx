@@ -225,10 +225,10 @@ function Hero() {
 
 function SocialProofBar() {
   const stats = [
-    { value: "3,000+", label: "solopreneurs using our tools" },
-    { value: "3", label: "products live today" },
-    { value: "4.8★", label: "average product rating" },
+    { value: "4", label: "products live today" },
     { value: "30-day", label: "money-back guarantee" },
+    { value: "Early", label: "access — join the community" },
+    { value: "→", label: "built for solopreneurs who move fast" },
   ];
 
   return (
