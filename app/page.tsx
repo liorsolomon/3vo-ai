@@ -198,7 +198,7 @@ function Hero() {
           className="text-[clamp(40px,7vw,88px)] leading-[1.05] tracking-tight text-[#E8E8E8] mb-8 max-w-4xl"
           style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
         >
-          Three tools. One ecosystem. Built to earn passively.
+          AI-powered tools for people who build on their own terms.
         </h1>
 
         <p
@@ -225,7 +225,7 @@ function Hero() {
 
 function SocialProofBar() {
   const stats = [
-    { value: "4", label: "products live today" },
+    { value: "5", label: "products live today" },
     { value: "30-day", label: "money-back guarantee" },
     { value: "Early", label: "access — join the community" },
     { value: "→", label: "built for solopreneurs who move fast" },
@@ -294,6 +294,24 @@ const PRODUCTS: Product[] = [
     price: "From $49 · Lifetime access",
     cta: "Get Automation Templates",
     href: "https://tools.3vo.ai",
+  },
+  {
+    name: "Niche Reports",
+    label: "VALIDATION",
+    headline: "Validate your niche before you build.",
+    body: "AI-generated market research reports for solopreneurs. Understand demand, competition, and monetization potential before you invest a single hour.",
+    price: "From $29 · Instant delivery",
+    cta: "Get Your Niche Report",
+    href: "https://validate.3vo.ai",
+  },
+  {
+    name: "VC Match Kit",
+    label: "FUNDRAISING",
+    headline: "Find the right investors without the guesswork.",
+    body: "Curated VC match lists and pitch templates tailored to your stage and sector. Stop cold-emailing the wrong investors — start pitching the ones who fund people like you.",
+    price: "From $49 · One-time payment",
+    cta: "Get VC Match Kit",
+    href: "https://vc.3vo.ai",
   },
 ];
 
@@ -381,11 +399,11 @@ function Products() {
           className="text-[#E8E8E8]/40 text-[14px] leading-relaxed mb-14 max-w-xl"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          Three live products. All independently useful. All built for the way
+          Five live products. All independently useful. All built for the way
           independent operators actually work.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#1a1a1a]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#1a1a1a]">
           {PRODUCTS.map((product) => (
             <ProductCard key={product.name} product={product} />
           ))}
@@ -412,6 +430,16 @@ const QUICK_MATCH = [
     want: "Stop doing the same tasks manually",
     start: "Automation Templates",
     href: "https://tools.3vo.ai",
+  },
+  {
+    want: "Research a niche before committing to it",
+    start: "Niche Reports",
+    href: "https://validate.3vo.ai",
+  },
+  {
+    want: "Find investors who actually fund your stage",
+    start: "VC Match Kit",
+    href: "https://vc.3vo.ai",
   },
 ];
 
@@ -581,7 +609,7 @@ function TrustBar() {
           className="text-[#E8E8E8] text-[clamp(20px,3vw,32px)] leading-[1.3] tracking-tight mb-4"
           style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
         >
-          All three products. One-time payments. No subscriptions. No fluff.
+          All five products. One-time payments. No subscriptions. No fluff.
         </p>
 
         <p
@@ -658,6 +686,24 @@ function Footer() {
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
             TOOLS
+          </a>
+          <a
+            href="https://validate.3vo.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            VALIDATE
+          </a>
+          <a
+            href="https://vc.3vo.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            VC KIT
           </a>
           <a
             href="https://x.com/3voai"
