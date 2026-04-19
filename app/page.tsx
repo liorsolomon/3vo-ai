@@ -662,6 +662,183 @@ function FAQ() {
   );
 }
 
+// ─── Got an Idea? CTA ─────────────────────────────────────────────────────────
+
+function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [idea, setIdea] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  const handleClose = () => {
+    setName("");
+    setEmail("");
+    setIdea("");
+    setSubmitted(false);
+    onClose();
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm px-4"
+      onClick={handleClose}
+    >
+      <div
+        className="bg-[#0A0A0A] border border-[#222222] p-8 w-full max-w-md relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={handleClose}
+          className="absolute top-4 right-4 text-[#E8E8E8]/40 hover:text-[#E8E8E8]/80 transition-colors text-xs tracking-widest"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          ✕
+        </button>
+
+        {submitted ? (
+          <div className="py-8 text-center">
+            <p
+              className="text-[#00FF85] text-sm tracking-widest"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              IDEA RECEIVED
+            </p>
+            <p
+              className="text-[#E8E8E8]/50 text-xs tracking-widest mt-3"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              WE&apos;LL VALIDATE IT WITHIN 48 HOURS.
+            </p>
+          </div>
+        ) : (
+          <>
+            <h2
+              className="text-[#00FF85] text-sm tracking-[0.2em] mb-2"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              SUBMIT YOUR IDEA
+            </h2>
+            <p
+              className="text-[#E8E8E8]/40 text-xs leading-relaxed mb-7"
+              style={{ fontFamily: "var(--font-space-mono)" }}
+            >
+              We&apos;ll validate it in 48 hours and build it if it converts.
+            </p>
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+              <div className="flex flex-col gap-1.5">
+                <label
+                  className="text-[#E8E8E8]/40 text-[10px] tracking-widest"
+                  style={{ fontFamily: "var(--font-share-tech-mono)" }}
+                >
+                  NAME
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="bg-[#111111] border border-[#222222] text-[#E8E8E8] text-sm px-3 py-2 outline-none focus:border-[#00FF85] transition-colors"
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label
+                  className="text-[#E8E8E8]/40 text-[10px] tracking-widest"
+                  style={{ fontFamily: "var(--font-share-tech-mono)" }}
+                >
+                  EMAIL
+                </label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="bg-[#111111] border border-[#222222] text-[#E8E8E8] text-sm px-3 py-2 outline-none focus:border-[#00FF85] transition-colors"
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                />
+              </div>
+
+              <div className="flex flex-col gap-1.5">
+                <label
+                  className="text-[#E8E8E8]/40 text-[10px] tracking-widest"
+                  style={{ fontFamily: "var(--font-share-tech-mono)" }}
+                >
+                  YOUR IDEA (1–2 SENTENCES)
+                </label>
+                <textarea
+                  required
+                  rows={3}
+                  value={idea}
+                  onChange={(e) => setIdea(e.target.value)}
+                  className="bg-[#111111] border border-[#222222] text-[#E8E8E8] text-sm px-3 py-2 outline-none focus:border-[#00FF85] transition-colors resize-none"
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="mt-2 bg-[#00FF85] text-[#0A0A0A] px-6 py-3 text-sm tracking-widest transition-opacity hover:opacity-80"
+                style={{ fontFamily: "var(--font-share-tech-mono)" }}
+              >
+                SUBMIT YOUR IDEA
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function IdeaCTA({ onIdeaOpen }: { onIdeaOpen: () => void }) {
+  return (
+    <section id="idea-form" className="bg-[#00FF85] px-6 py-20">
+      <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+          <h2
+            className="text-[#0A0A0A] text-[clamp(28px,4vw,48px)] leading-[1.1] tracking-tight mb-3"
+            style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+          >
+            Got a passive income idea?
+          </h2>
+          <p
+            className="text-[#0A0A0A]/70 text-[16px] leading-relaxed max-w-xl"
+            style={{ fontFamily: "var(--font-space-mono)" }}
+          >
+            We&apos;ll validate it in 48 hours and build it if it converts.
+          </p>
+        </div>
+
+        <button
+          onClick={onIdeaOpen}
+          className="shrink-0 bg-[#0A0A0A] text-[#00FF85] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80 whitespace-nowrap"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          SUBMIT YOUR IDEA ↗
+        </button>
+      </div>
+    </section>
+  );
+}
+
 // ─── Trust Bar / Footer CTA ───────────────────────────────────────────────────
 
 function TrustBar() {
@@ -815,10 +992,12 @@ function Footer() {
 
 export default function Home() {
   const [contactOpen, setContactOpen] = useState(false);
+  const [ideaOpen, setIdeaOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-[#0A0A0A]">
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
+      <IdeaModal isOpen={ideaOpen} onClose={() => setIdeaOpen(false)} />
       <Nav onContactOpen={() => setContactOpen(true)} />
       <Hero />
       <SocialProofBar />
@@ -827,6 +1006,7 @@ export default function Home() {
       <QuickMatch />
       <Why />
       <FAQ />
+      <IdeaCTA onIdeaOpen={() => setIdeaOpen(true)} />
       <TrustBar />
       <Footer />
     </main>
