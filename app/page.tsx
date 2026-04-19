@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ProductCatalog from "./ProductCatalog";
+import { track } from "./lib/track";
 
 // ─── Contact Modal ────────────────────────────────────────────────────────────
 
@@ -10,6 +11,7 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
   const [lastName, setLastName] = useState("");
   const [description, setDescription] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -22,8 +24,21 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, description }),
+      });
+    } catch {
+      // best-effort
+    } finally {
+      setSubmitting(false);
+    }
+    track("contact_submit", { form: "contact_modal" });
     setSubmitted(true);
   };
 
@@ -131,10 +146,11 @@ function ContactModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => voi
 
               <button
                 type="submit"
-                className="mt-2 bg-[#00FF85] text-[#0A0A0A] px-6 py-3 text-sm tracking-widest transition-opacity hover:opacity-80"
+                disabled={submitting}
+                className="mt-2 bg-[#00FF85] text-[#0A0A0A] px-6 py-3 text-sm tracking-widest transition-opacity hover:opacity-80 disabled:opacity-50"
                 style={{ fontFamily: "var(--font-share-tech-mono)" }}
               >
-                SUBMIT
+                {submitting ? "..." : "SUBMIT"}
               </button>
             </form>
           </>
@@ -211,7 +227,7 @@ function Hero({ onIdeaOpen }: { onIdeaOpen: () => void }) {
 
         <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
           <button
-            onClick={onIdeaOpen}
+            onClick={() => { track("cta_click", { cta: "hero_submit_idea" }); onIdeaOpen(); }}
             className="bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
@@ -253,6 +269,7 @@ function EmailCapture() {
         body: JSON.stringify({ email }),
       });
       if (!res.ok) throw new Error("failed");
+      track("email_signup", { form: "email_capture" });
       setStatus("done");
     } catch {
       setStatus("error");
@@ -853,6 +870,7 @@ function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
         body: JSON.stringify({ name, email, idea, turnstileToken }),
       });
       if (!res.ok) throw new Error("submission failed");
+      track("idea_submit", { form: "idea_modal" });
       setSubmitted(true);
     } catch {
       setError("Something went wrong. Please try again.");
@@ -1022,7 +1040,7 @@ function IdeaCTA({ onIdeaOpen }: { onIdeaOpen: () => void }) {
         </div>
 
         <button
-          onClick={onIdeaOpen}
+          onClick={() => { track("cta_click", { cta: "idea_cta_section" }); onIdeaOpen(); }}
           className="shrink-0 bg-[#0A0A0A] text-[#00FF85] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80 whitespace-nowrap"
           style={{ fontFamily: "var(--font-share-tech-mono)" }}
         >
