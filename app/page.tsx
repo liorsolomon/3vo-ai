@@ -196,51 +196,42 @@ function Hero({ onIdeaOpen }: { onIdeaOpen: () => void }) {
     <section className="relative px-6 pt-28 pb-16 lg:pt-36 lg:pb-24">
       <div className="mx-auto max-w-6xl w-full">
         <h1
-          className="text-[clamp(40px,7vw,88px)] leading-[1.05] tracking-tight text-[#E8E8E8] mb-8 max-w-4xl"
+          className="text-[clamp(40px,7vw,88px)] leading-[1.05] tracking-tight text-[#E8E8E8] mb-6 max-w-4xl"
           style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
         >
-          AI-powered tools for people who build on their own terms.
+          Got a passive income idea?
         </h1>
 
         <p
           className="text-[#E8E8E8]/60 text-[18px] leading-relaxed mb-10 max-w-2xl"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          Digital products for freelancers and creators who want to generate income
-          &mdash; without adding more hours to their week.
+          We validate it in 48 hours and build it if it converts.
         </p>
 
-        <a
-          href="#products"
-          className="inline-block bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
-          style={{ fontFamily: "var(--font-share-tech-mono)" }}
-        >
-          EXPLORE THE PRODUCTS ↓
-        </a>
-
-        <div className="mt-10 pt-10 border-t border-[#1a1a1a] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
-          <div>
-            <p
-              className="text-[#00FF85]/60 text-[10px] tracking-[0.2em] mb-2"
-              style={{ fontFamily: "var(--font-share-tech-mono)" }}
-            >
-              GOT A PASSIVE INCOME IDEA?
-            </p>
-            <p
-              className="text-[#E8E8E8]/60 text-[14px] leading-relaxed max-w-lg"
-              style={{ fontFamily: "var(--font-space-mono)" }}
-            >
-              We validate it in 48 hours and build it if it converts.
-            </p>
-          </div>
+        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
           <button
             onClick={onIdeaOpen}
-            className="shrink-0 border border-[#00FF85] text-[#00FF85] px-7 py-3 text-xs tracking-widest transition-opacity hover:opacity-80 whitespace-nowrap"
+            className="bg-[#00FF85] text-[#0A0A0A] px-8 py-4 text-sm tracking-widest transition-opacity hover:opacity-80"
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
             SUBMIT YOUR IDEA →
           </button>
+          <a
+            href="#products"
+            className="text-[#E8E8E8]/40 text-sm tracking-widest hover:text-[#E8E8E8]/70 transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            OR EXPLORE THE PRODUCTS ↓
+          </a>
         </div>
+
+        <p
+          className="text-[#E8E8E8]/20 text-xs tracking-widest mt-10"
+          style={{ fontFamily: "var(--font-share-tech-mono)" }}
+        >
+          &mdash; The 3vo.ai team
+        </p>
       </div>
     </section>
   );
