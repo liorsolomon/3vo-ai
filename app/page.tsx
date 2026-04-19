@@ -669,6 +669,8 @@ function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   const [email, setEmail] = useState("");
   const [idea, setIdea] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (!isOpen) return;
@@ -681,9 +683,23 @@ function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    setError("");
+    try {
+      const res = await fetch("/api/submit-idea", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, idea }),
+      });
+      if (!res.ok) throw new Error("submission failed");
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -793,12 +809,22 @@ function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
                 />
               </div>
 
+              {error && (
+                <p
+                  className="text-red-400 text-xs tracking-widest"
+                  style={{ fontFamily: "var(--font-share-tech-mono)" }}
+                >
+                  {error}
+                </p>
+              )}
+
               <button
                 type="submit"
-                className="mt-2 bg-[#00FF85] text-[#0A0A0A] px-6 py-3 text-sm tracking-widest transition-opacity hover:opacity-80"
+                disabled={submitting}
+                className="mt-2 bg-[#00FF85] text-[#0A0A0A] px-6 py-3 text-sm tracking-widest transition-opacity hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ fontFamily: "var(--font-share-tech-mono)" }}
               >
-                SUBMIT YOUR IDEA
+                {submitting ? "SENDING..." : "SUBMIT YOUR IDEA"}
               </button>
             </form>
           </>
