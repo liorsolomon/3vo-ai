@@ -191,9 +191,9 @@ function Nav({ onContactOpen }: { onContactOpen: () => void }) {
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
-function Hero() {
+function Hero({ onIdeaOpen }: { onIdeaOpen: () => void }) {
   return (
-    <section className="relative px-6 py-28 lg:py-36">
+    <section className="relative px-6 pt-28 pb-16 lg:pt-36 lg:pb-24">
       <div className="mx-auto max-w-6xl w-full">
         <h1
           className="text-[clamp(40px,7vw,88px)] leading-[1.05] tracking-tight text-[#E8E8E8] mb-8 max-w-4xl"
@@ -217,6 +217,30 @@ function Hero() {
         >
           EXPLORE THE PRODUCTS ↓
         </a>
+
+        <div className="mt-10 pt-10 border-t border-[#1a1a1a] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+          <div>
+            <p
+              className="text-[#00FF85]/60 text-[10px] tracking-[0.2em] mb-2"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              GOT A PASSIVE INCOME IDEA?
+            </p>
+            <p
+              className="text-[#E8E8E8]/60 text-[14px] leading-relaxed max-w-lg"
+              style={{ fontFamily: "var(--font-space-mono)" }}
+            >
+              We validate it in 48 hours and build it if it converts.
+            </p>
+          </div>
+          <button
+            onClick={onIdeaOpen}
+            className="shrink-0 border border-[#00FF85] text-[#00FF85] px-7 py-3 text-xs tracking-widest transition-opacity hover:opacity-80 whitespace-nowrap"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            SUBMIT YOUR IDEA →
+          </button>
+        </div>
       </div>
     </section>
   );
@@ -1178,7 +1202,7 @@ export default function Home() {
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <IdeaModal isOpen={ideaOpen} onClose={() => setIdeaOpen(false)} />
       <Nav onContactOpen={() => setContactOpen(true)} />
-      <Hero />
+      <Hero onIdeaOpen={() => setIdeaOpen(true)} />
       <EmailCapture />
       <SocialProofBar />
       <Products />
