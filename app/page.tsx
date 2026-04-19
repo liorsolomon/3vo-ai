@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import ProductCatalog from "./ProductCatalog";
 
 // ─── Contact Modal ────────────────────────────────────────────────────────────
 
@@ -822,6 +823,7 @@ export default function Home() {
       <Hero />
       <SocialProofBar />
       <Products />
+      <ProductCatalog />
       <QuickMatch />
       <Why />
       <FAQ />
