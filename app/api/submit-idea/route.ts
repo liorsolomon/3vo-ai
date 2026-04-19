@@ -36,7 +36,8 @@ export async function POST(req: NextRequest) {
   }
 
   // Insert into Supabase ideas table
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  // Use SUPABASE_URL (server-only) so URL changes don't require a rebuild
+  const supabaseUrl = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
   if (supabaseUrl && supabaseKey) {
