@@ -664,6 +664,18 @@ function FAQ() {
 
 // ─── Got an Idea? CTA ─────────────────────────────────────────────────────────
 
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (container: string | HTMLElement, options: Record<string, unknown>) => string;
+      reset: (widgetId: string) => void;
+      remove: (widgetId: string) => void;
+    };
+  }
+}
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
+
 function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -671,6 +683,9 @@ function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const widgetIdRef = useRef<string>("");
 
   useEffect(() => {
     if (!isOpen) return;
@@ -681,22 +696,68 @@ function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
     return () => window.removeEventListener("keydown", handleKey);
   }, [isOpen, onClose]);
 
+  // Load Turnstile script and render widget when modal opens
+  useEffect(() => {
+    if (!isOpen || !TURNSTILE_SITE_KEY || !turnstileRef.current) return;
+
+    const renderWidget = () => {
+      if (!turnstileRef.current || !window.turnstile) return;
+      widgetIdRef.current = window.turnstile.render(turnstileRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        theme: "dark",
+        callback: (token: string) => setTurnstileToken(token),
+        "expired-callback": () => setTurnstileToken(""),
+      });
+    };
+
+    if (window.turnstile) {
+      renderWidget();
+    } else {
+      const existing = document.getElementById("cf-turnstile-script");
+      if (!existing) {
+        const script = document.createElement("script");
+        script.id = "cf-turnstile-script";
+        script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+        script.async = true;
+        script.onload = renderWidget;
+        document.head.appendChild(script);
+      } else {
+        existing.addEventListener("load", renderWidget, { once: true });
+      }
+    }
+
+    return () => {
+      if (widgetIdRef.current && window.turnstile) {
+        window.turnstile.remove(widgetIdRef.current);
+        widgetIdRef.current = "";
+      }
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (TURNSTILE_SITE_KEY && !turnstileToken) {
+      setError("Please complete the verification.");
+      return;
+    }
     setSubmitting(true);
     setError("");
     try {
       const res = await fetch("/api/submit-idea", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, idea }),
+        body: JSON.stringify({ name, email, idea, turnstileToken }),
       });
       if (!res.ok) throw new Error("submission failed");
       setSubmitted(true);
     } catch {
       setError("Something went wrong. Please try again.");
+      if (widgetIdRef.current && window.turnstile) {
+        window.turnstile.reset(widgetIdRef.current);
+        setTurnstileToken("");
+      }
     } finally {
       setSubmitting(false);
     }
@@ -707,6 +768,7 @@ function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
     setEmail("");
     setIdea("");
     setSubmitted(false);
+    setTurnstileToken("");
     onClose();
   };
 
@@ -809,6 +871,10 @@ function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
                 />
               </div>
 
+              {TURNSTILE_SITE_KEY && (
+                <div ref={turnstileRef} className="mt-1" />
+              )}
+
               {error && (
                 <p
                   className="text-red-400 text-xs tracking-widest"
@@ -820,7 +886,7 @@ function IdeaModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
 
               <button
                 type="submit"
-                disabled={submitting}
+                disabled={submitting || (!!TURNSTILE_SITE_KEY && !turnstileToken)}
                 className="mt-2 bg-[#00FF85] text-[#0A0A0A] px-6 py-3 text-sm tracking-widest transition-opacity hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
                 style={{ fontFamily: "var(--font-share-tech-mono)" }}
               >
