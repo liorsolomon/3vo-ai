@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const CEO_AGENT_ID = "c88aa159-fe00-4ee4-bd72-3d77d0a53136";
-// "Validate first passive income hypothesis with real P&L data"
-const IDEA_GOAL_ID = "098009cc-311e-4061-8488-563e5013d676";
-
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
 
@@ -39,32 +35,31 @@ export async function POST(req: NextRequest) {
     console.warn("[submit-idea] TURNSTILE_SECRET_KEY not configured — skipping CAPTCHA check");
   }
 
-  const paperclipApiKey = process.env.PAPERCLIP_API_KEY;
-  const paperclipApiUrl = process.env.PAPERCLIP_API_URL;
-  const paperclipCompanyId = process.env.PAPERCLIP_COMPANY_ID;
+  // Insert into Supabase ideas table
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
-  if (paperclipApiKey && paperclipApiUrl && paperclipCompanyId) {
+  if (supabaseUrl && supabaseKey) {
     try {
-      await fetch(`${paperclipApiUrl}/api/companies/${paperclipCompanyId}/issues`, {
+      const res = await fetch(`${supabaseUrl}/rest/v1/ideas`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${paperclipApiKey}`,
+          "apikey": supabaseKey,
+          "Authorization": `Bearer ${supabaseKey}`,
+          "Prefer": "return=minimal",
         },
-        body: JSON.stringify({
-          title: `Idea from ${name}: ${idea.slice(0, 80)}${idea.length > 80 ? "…" : ""}`,
-          description: `## Submitted via 3vo.ai\n\n**From:** ${name} (${email})\n\n**Idea:**\n\n${idea}`,
-          assigneeAgentId: CEO_AGENT_ID,
-          goalId: IDEA_GOAL_ID,
-          status: "todo",
-          priority: "medium",
-        }),
+        body: JSON.stringify({ name, email, idea }),
       });
+      if (!res.ok) {
+        const text = await res.text();
+        console.error("[submit-idea] supabase insert error:", res.status, text);
+      }
     } catch (err) {
-      console.error("[submit-idea] paperclip issue create error:", err);
+      console.error("[submit-idea] supabase fetch error:", err);
     }
   } else {
-    console.warn("[submit-idea] Paperclip env vars not configured — skipping issue creation");
+    console.warn("[submit-idea] SUPABASE env vars not configured — skipping idea storage");
   }
 
   // CC the board via email
@@ -79,7 +74,7 @@ export async function POST(req: NextRequest) {
         replyTo: email,
         subject: `[CC] New idea from ${name}`,
         html: `
-          <p><em>This is a CC. The CEO agent has been assigned to review this idea.</em></p>
+          <p><em>This is a CC. The idea has been stored in Supabase and queued for CEO review.</em></p>
           <hr/>
           <p><strong>Name:</strong> ${escapeHtml(name)}</p>
           <p><strong>Email:</strong> ${escapeHtml(email)}</p>
