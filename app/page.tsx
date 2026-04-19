@@ -222,6 +222,93 @@ function Hero() {
   );
 }
 
+// ─── Email Capture ────────────────────────────────────────────────────────────
+
+function EmailCapture() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error("failed");
+      setStatus("done");
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <section className="bg-[#00FF85] px-6 py-12">
+      <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <p
+            className="text-[#0A0A0A] text-xs tracking-widest mb-1"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            FREE RESOURCE
+          </p>
+          <h2
+            className="text-[#0A0A0A] text-[clamp(18px,2.5vw,26px)] leading-[1.2] tracking-tight"
+            style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
+          >
+            Get the free solopreneur toolkit guide
+          </h2>
+          <p
+            className="text-[#0A0A0A]/70 text-[13px] mt-1"
+            style={{ fontFamily: "var(--font-space-mono)" }}
+          >
+            5 AI tools that pay for themselves in the first week — delivered free.
+          </p>
+        </div>
+
+        {status === "done" ? (
+          <p
+            className="text-[#0A0A0A] text-sm tracking-widest shrink-0"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            ✓ CHECK YOUR INBOX
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex gap-2 w-full md:w-auto shrink-0">
+            <input
+              type="email"
+              required
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="bg-[#0A0A0A] text-[#E8E8E8] placeholder-[#E8E8E8]/40 text-sm px-4 py-3 outline-none w-64"
+              style={{ fontFamily: "var(--font-space-mono)" }}
+            />
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="bg-[#0A0A0A] text-[#00FF85] px-6 py-3 text-xs tracking-widest transition-opacity hover:opacity-80 disabled:opacity-50 whitespace-nowrap"
+              style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            >
+              {status === "loading" ? "..." : "GET IT FREE →"}
+            </button>
+          </form>
+        )}
+        {status === "error" && (
+          <p
+            className="text-red-700 text-xs tracking-widest"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            SOMETHING WENT WRONG — TRY AGAIN
+          </p>
+        )}
+      </div>
+    </section>
+  );
+}
+
 // ─── Social Proof Bar ─────────────────────────────────────────────────────────
 
 function SocialProofBar() {
@@ -1092,6 +1179,7 @@ export default function Home() {
       <IdeaModal isOpen={ideaOpen} onClose={() => setIdeaOpen(false)} />
       <Nav onContactOpen={() => setContactOpen(true)} />
       <Hero />
+      <EmailCapture />
       <SocialProofBar />
       <Products />
       <ProductCatalog />
