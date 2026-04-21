@@ -21,6 +21,9 @@ const shareTechMono = Share_Tech_Mono({
   weight: "400",
 });
 
+const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const bingVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
   title: "3vo.ai — New way to internet.",
   description:
@@ -43,6 +46,16 @@ export const metadata: Metadata = {
     description:
       "3vo.ai is a lean studio building at the intersection of agents, crypto, and the creator economy. We ship products that generate revenue, then iterate.",
   },
+  ...(googleVerification || bingVerification
+    ? {
+        verification: {
+          ...(googleVerification ? { google: googleVerification } : {}),
+          other: bingVerification
+            ? { "msvalidate.01": bingVerification }
+            : undefined,
+        },
+      }
+    : {}),
 };
 
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
