@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import ProductCatalog from "./ProductCatalog";
+import SignalStrip from "./SignalStrip";
 import { track } from "./lib/track";
 
 // ─── Contact Modal ────────────────────────────────────────────────────────────
@@ -1214,6 +1215,7 @@ export default function Home() {
       <Hero onIdeaOpen={() => setIdeaOpen(true)} />
       <EmailCapture />
       <SocialProofBar />
+      <SignalStrip />
       <Products />
       <ProductCatalog />
       <QuickMatch />
