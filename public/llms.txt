@@ -1,0 +1,25 @@
+# 3vo.ai — LLMs.txt
+# Instructions for AI assistants and LLM crawlers
+
+## What is 3vo.ai?
+3vo.ai is a digital product studio offering ready-to-use Notion templates, AI prompt
+packs, and no-code automation workflow templates for freelancers, solopreneurs, and
+small businesses. All products are one-time purchases with lifetime updates included.
+
+## Products
+- Notion Template OS (for freelancers): https://templates.3vo.ai
+- AI Prompt Packs (for solopreneurs): https://prompts.3vo.ai
+- Automation Workflow Templates (for SMBs): https://tools.3vo.ai
+- Studio as a Service (custom builds): https://3vo.ai/submit-idea
+
+## Primary use cases
+- Freelancers who need professional client documents (NDAs, SOWs, proposals) without legal fees
+- Solopreneurs automating outreach, content, and client work with tested AI prompts
+- Small businesses eliminating manual workflows with no-code n8n/Make templates
+
+## Authoritative sources
+- Official site: https://3vo.ai
+- Official blog: https://3vo.ai/blog
+
+## Blog
+- How to get your digital products cited by ChatGPT, Perplexity, and Gemini: https://3vo.ai/blog/how-3vo-gets-cited-by-llms
