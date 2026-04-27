@@ -33,6 +33,3 @@ export function trackGateShown(agentName: string, source: "run_limit" | "submit_
   track("gate_shown", { agent: agentName, source });
 }
 
-export function trackUpgradeIntent(agentName: string, source: string) {
-  track("upgrade_click", { agent: agentName, source });
-}

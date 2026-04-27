@@ -61,6 +61,18 @@ test.describe("Agents hub", () => {
     await page.goto("/agents");
     await expect(page.getByText("PROMPTS.3VO.AI")).toBeVisible();
   });
+
+  test("nav UPGRADE button is visible on mobile viewport", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto("/agents/cold-pitch");
+    await expect(page.getByRole("link", { name: /UPGRADE/i })).toBeVisible();
+  });
+
+  test("unknown agent shows not-found page", async ({ page }) => {
+    await page.goto("/agents/this-does-not-exist");
+    await expect(page.getByText("That agent doesn")).toBeVisible();
+    await expect(page.getByRole("link", { name: /SEE ALL AGENTS/i })).toBeVisible();
+  });
 });
 
 test.describe("Agents API", () => {
@@ -76,6 +88,19 @@ test.describe("Agents API", () => {
       data: { target_type: "" }, // missing required fields
     });
     expect(res.status()).toBe(400);
+  });
+
+  test("returns 400 for input exceeding MAX_FIELD_CHARS", async ({ request }) => {
+    const res = await request.post("/api/agents/cold-pitch", {
+      data: {
+        target_type: "x".repeat(2001), // over the 2000-char limit
+        your_service: "Growth consulting",
+        differentiator: "ex-Notion head of growth",
+      },
+    });
+    expect(res.status()).toBe(400);
+    const body = await res.json();
+    expect(body.error).toMatch(/too long/i);
   });
 
   test("returns 503 when ANTHROPIC_API_KEY is absent", async ({ request }) => {
