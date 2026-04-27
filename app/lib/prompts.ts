@@ -88,12 +88,13 @@ DIFFERENTIATOR: ${inputs.differentiator}
 LEAD CONTEXT: ${inputs.context || "none provided"}
 
 Write a cold pitch (email or LinkedIn DM format). Rules:
-- Subject line: 6 words or fewer, no spam triggers, no "quick question"
+- Subject line: 6 words or fewer, no spam triggers, no "quick question", no "[First Name],"
 - Opening line: their world, not your pitch — specific to the pain/context
 - Body: 2-3 sentences max. One credibility signal. One insight that earns the right to the ask.
-- CTA: single low-friction ask. Not "let me know if you're interested."
+- CTA: single low-friction ask. Not "let me know if you're interested." Give a specific option (e.g. "15 min Thursday?")
 - Total length: under 100 words for the body
 - Tone: direct, peer-to-peer — not vendor-to-buyer
+- NEVER start with: "I noticed...", "I came across...", "I see that...", "I wanted to reach out", "Hope this finds you well"
 
 Output format: Subject line, then the email body. No meta-commentary.`,
 
@@ -107,10 +108,11 @@ TARGET: ${inputs.target_type}
 
 Polish this ruthlessly:
 1. Cut any word that doesn't earn its place
-2. Make the opening line more specific and surprising if it's generic
-3. Ensure the CTA is one specific action with a clear mental model (e.g. "15-min call Thursday?" not "let me know if interested")
-4. If the subject line is weak, rewrite it
+2. Make the opening line more specific and surprising — ban "I noticed/came across/see that" openers
+3. Ensure the CTA is one specific action with a concrete option (e.g. "15-min call Thursday?" not "let me know if interested")
+4. If the subject line is weak or feels templated, rewrite it
 5. Check: would a skeptical, busy ${inputs.target_type} read past line 1? If not, fix it.
+6. Would someone recognize this as a template? If yes, personalize harder.
 
 Output ONLY the final polished pitch. Subject line first, then body. Nothing else.`,
   },
@@ -180,14 +182,14 @@ OUTCOMES: ${inputs.outcome_delivered || "not specified"}
 
 Write a pricing reframe script. Format it as a real conversation the freelancer can use:
 
-1. ACKNOWLEDGE (1 sentence — validate without agreeing)
-2. REFRAME (2-3 sentences — shift from cost to outcome/risk)
-3. HOLD THE LINE (1 sentence — confident close, not defensive)
-4. OPTIONAL: ONE alternative offer (not a discount — a scope reduction or payment structure)
+1. ACKNOWLEDGE (1 sentence — validate without agreeing. NEVER use "I completely understand" or "I hear you" — these sound scripted)
+2. REFRAME (2-3 sentences — shift from cost to outcome/risk. Frame around what they lose by not hiring, not why you're worth it)
+3. HOLD THE LINE (1 sentence — decisive statement, not a question, no hedging)
+4. OPTIONAL: ONE alternative offer (never more than 20% below rate — scope reduction or payment structure only, not a discount)
 
-Also write 2-3 specific phrases they can use for common objections like "we're comparing other options" and "can you do it for less."
+Also write 2-3 specific verbatim phrases for: "we're comparing other options" and "can you do it for less."
 
-Tone: confident, peer-level, no desperation.`,
+Tone: confident, peer-level, zero desperation.`,
 
     polishPrompt: (_, draft) => `You are an elite sales coach reviewing a pricing reframe script:
 
@@ -259,13 +261,13 @@ AUDIENCE: ${inputs.target_audience}
 ANGLE: ${inputs.angle || "best judgment"}
 
 Write the full LinkedIn post. Rules:
-- First line: scroll-stopping — make someone pause mid-feed. No "I've been thinking about..." openers.
+- First line: scroll-stopping — should work as a standalone tweet. No openers starting with "I've been thinking...", "Unpopular opinion:", "Hot take:", "[Number] things I wish I knew", or "Let's talk about"
 - Structure: short punchy paragraphs. Never more than 2 sentences per paragraph.
-- Body: specific, real, concrete — no vague advice. One insight per paragraph.
-- End: either a specific CTA, a reframe that lands, or a question that makes people comment
+- Body: specific, real, concrete — no vague advice. One insight per paragraph. Show, don't tell.
+- End: either a specific CTA, a reframe that lands, or a question that creates genuine debate
 - Length: 150-300 words. LinkedIn penalizes under 150; over 300 loses most people.
 - No hashtag spam. Max 2-3 relevant ones at the end if needed.
-- No em-dash as an opener. No corporate buzzwords.
+- No em-dash as an opener. No corporate buzzwords. No emojis unless requested.
 
 Output ONLY the post text. No commentary.`,
 
@@ -276,11 +278,12 @@ ${draft}
 ---
 
 Polish it:
-1. Read the first line cold — would you stop scrolling? If not, rewrite it.
+1. Read the first line cold — would you stop scrolling? If not, rewrite it. Does it work as a standalone tweet?
 2. Cut any sentence that doesn't add new information or emotion
 3. Make sure every paragraph break creates forward momentum ("what comes next?")
-4. Is the ending strong? It should make people feel something or do something.
+4. Is the ending strong? It should make people feel something or do something — not just trail off.
 5. Flag any corporate-speak, vague claims, or "telling" when you could be "showing"
+6. Is there a cliché opening? "Unpopular opinion", "Let me be honest", "Nobody talks about this" — replace with a specific concrete hook.
 
 Output ONLY the final polished post. No meta-commentary.`,
   },
@@ -387,8 +390,9 @@ Polish it:
 2. Are deliverables crystal clear? A confused buyer doesn't sign.
 3. Is the investment framed as value, not cost?
 4. Is the CTA unambiguous and low-friction?
-5. Cut any corporate filler — "synergy", "leverage", "best-in-class"
-6. Check: would you sign this? If hesitating, what would you change?
+5. Cut any corporate filler — "synergy", "leverage", "best-in-class", "world-class"
+6. Check revision terms — "revisions until you're happy" is a scope trap. Make them specific (e.g. "2 rounds of revisions").
+7. Check: would you sign this? If hesitating, what would you change?
 
 Output ONLY the final polished proposal in clean markdown format. No commentary.`,
   },
@@ -465,14 +469,14 @@ BLOCKERS: ${inputs.blockers || "none"}
 RELATIONSHIP TEMP: ${inputs.relationship_context || "not specified"}
 
 Write a check-in message (email or async message). Rules:
-- Open with something specific — not "Hope you're well" — show you know where they are
+- Open with something specific — NEVER "Just checking in", "I wanted to touch base", "Hope you're well", "I hope this finds you well"
 - Lead with value/progress, not your needs
-- If you need something, ask once, clearly, at the end — not buried mid-message
-- Keep it under 150 words unless the project phase demands more
-- Tone: confident professional who is in control and has their back
-- No over-explaining. Don't justify every decision.
+- If you need something from them, ask once, clearly, at the end with a specific timeframe (e.g. "by Thursday" not "when you have a chance")
+- Keep it under 150 words unless the project phase genuinely demands more
+- Tone: confident professional who is in control and has their back — not anxious, not over-explaining
+- No justifying every decision. State progress, not the process behind it.
 
-Output the message ready to send. Subject line if email format.`,
+Output the message ready to send. Subject line first if email format.`,
 
     polishPrompt: (inputs, draft) => `You are editing a client check-in for ${inputs.client_name}:
 
@@ -481,11 +485,11 @@ ${draft}
 ---
 
 Polish this:
-1. Is the opening line specific and warm without being sycophantic?
-2. Does the progress update feel confident, not defensive?
-3. If there's a blocker ask, is it clear, specific, and once only?
-4. Is the length right? Too long = anxiety, too short = dismissive
-5. Would the client feel "they've got this" after reading it?
+1. Does the opening avoid "checking in", "touching base", or "hope you're well"? If not, replace with something specific.
+2. Does the progress update feel confident, not defensive or over-explained?
+3. If there's a blocker ask, is it clear, specific, once only, and does it include a concrete timeframe?
+4. Is the length right? Too long = anxiety, too short = dismissive. Under 150 words unless there's a real reason.
+5. Would the client feel "they've got this" after reading it? Or do they feel chased?
 
 Output ONLY the final polished message. No commentary.`,
   },
