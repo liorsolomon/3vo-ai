@@ -45,6 +45,7 @@ export default function AgentRunner({ agent }: Props) {
   const [remaining, setRemaining] = useState(FREE_RUNS);
   const [checkingOut, setCheckingOut] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -88,6 +89,7 @@ export default function AgentRunner({ agent }: Props) {
     setOutput("");
     setCurrentStep(null);
     setErrorMsg("");
+    setFeedback(null);
 
     track("agent_run_start", { agent: agent.name });
 
@@ -179,6 +181,12 @@ export default function AgentRunner({ agent }: Props) {
     a.click();
     URL.revokeObjectURL(url);
     track("agent_output_download", { agent: agent.name });
+  };
+
+  const handleFeedback = (rating: "up" | "down") => {
+    if (feedback) return;
+    setFeedback(rating);
+    track("agent_output_feedback", { agent: agent.name, rating });
   };
 
   const isRunning = status === "running";
@@ -361,6 +369,36 @@ export default function AgentRunner({ agent }: Props) {
             {output}
             {isRunning && <span className="animate-pulse text-[#00FF85]">▌</span>}
           </div>
+
+          {/* Post-run quality feedback */}
+          {status === "done" && output && (
+            <div className="flex items-center gap-4 mt-3">
+              <span
+                className="text-[#E8E8E8]/20 text-xs tracking-widest"
+                style={{ fontFamily: "var(--font-share-tech-mono)" }}
+              >
+                {feedback ? (feedback === "up" ? "THANKS ✓" : "NOTED.") : "USEFUL?"}
+              </span>
+              {!feedback && (
+                <>
+                  <button
+                    onClick={() => handleFeedback("up")}
+                    className="text-[#E8E8E8]/30 hover:text-[#00FF85] transition-colors px-1 py-1 text-base leading-none"
+                    aria-label="Output was useful"
+                  >
+                    ↑
+                  </button>
+                  <button
+                    onClick={() => handleFeedback("down")}
+                    className="text-[#E8E8E8]/30 hover:text-[#FF4444] transition-colors px-1 py-1 text-base leading-none"
+                    aria-label="Output was not useful"
+                  >
+                    ↓
+                  </button>
+                </>
+              )}
+            </div>
+          )}
         </div>
       )}
 
