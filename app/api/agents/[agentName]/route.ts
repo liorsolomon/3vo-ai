@@ -5,18 +5,52 @@ import { AGENTS, AgentName } from "@/app/lib/prompts";
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const MODEL = "claude-sonnet-4-6";
-const MAX_TOKENS = 1024;
+const MAX_TOKENS = 1200;
+// Abort step 1+2 if they take longer than 30s each; 45s for the streaming step
+const STEP_TIMEOUT_MS = 30_000;
 
 async function runStep(systemPrompt: string, userMessage: string): Promise<string> {
-  const message = await client.messages.create({
-    model: MODEL,
-    max_tokens: MAX_TOKENS,
-    system: systemPrompt,
-    messages: [{ role: "user", content: userMessage }],
-  });
-  const block = message.content[0];
-  if (block.type !== "text") throw new Error("Unexpected content block type");
-  return block.text;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), STEP_TIMEOUT_MS);
+
+  try {
+    const message = await client.messages.create(
+      {
+        model: MODEL,
+        max_tokens: MAX_TOKENS,
+        system: systemPrompt,
+        messages: [{ role: "user", content: userMessage }],
+      },
+      { signal: controller.signal }
+    );
+    const block = message.content[0];
+    if (block.type !== "text") throw new Error("Unexpected content block type");
+    return block.text;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function classifyError(err: unknown): { message: string; status: number } {
+  if (err instanceof Anthropic.APIError) {
+    if (err.status === 429) {
+      return { message: "Rate limit reached. Please wait a moment and try again.", status: 429 };
+    }
+    if (err.status === 401) {
+      return { message: "API key not configured correctly. Contact support.", status: 500 };
+    }
+    if (err.status === 529 || err.status === 503) {
+      return { message: "Claude is temporarily overloaded. Please try again in a minute.", status: 503 };
+    }
+    return { message: `AI service error (${err.status}). Please try again.`, status: 502 };
+  }
+  if (err instanceof Error) {
+    if (err.name === "AbortError" || err.message.includes("aborted")) {
+      return { message: "Request timed out. Try shorter inputs or try again.", status: 504 };
+    }
+    return { message: err.message, status: 500 };
+  }
+  return { message: "Unknown error. Please try again.", status: 500 };
 }
 
 export async function POST(
@@ -31,14 +65,17 @@ export async function POST(
   }
 
   if (!process.env.ANTHROPIC_API_KEY) {
-    return NextResponse.json({ error: "API key not configured" }, { status: 500 });
+    return NextResponse.json(
+      { error: "API key not configured. Set ANTHROPIC_API_KEY in env." },
+      { status: 503 }
+    );
   }
 
   let inputs: Record<string, string>;
   try {
     inputs = await req.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
   // Validate required fields
@@ -56,20 +93,24 @@ export async function POST(
   const stream = new ReadableStream({
     async start(controller) {
       const send = (event: string, data: unknown) => {
-        controller.enqueue(
-          encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`)
-        );
+        try {
+          controller.enqueue(
+            encoder.encode(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`)
+          );
+        } catch {
+          // stream may have been closed
+        }
       };
 
       try {
-        // Step 1: Expand — analyze the situation
+        // Step 1: Expand
         send("step", { step: 1, label: "Analyzing your situation…" });
         const expansion = await runStep(
           "You are a strategic analyst. Be specific and incisive. No fluff.",
           agent.expandPrompt(inputs)
         );
 
-        // Step 2: Generate — draft the content
+        // Step 2: Generate
         send("step", { step: 2, label: "Drafting your content…" });
         const draft = await runStep(
           "You are an expert copywriter and strategist. Write for impact, not length.",
@@ -82,7 +123,8 @@ export async function POST(
         const polishStream = await client.messages.create({
           model: MODEL,
           max_tokens: MAX_TOKENS,
-          system: "You are a ruthless editor. Cut everything that doesn't earn its place. Output only the final result.",
+          system:
+            "You are a ruthless editor. Cut everything that doesn't earn its place. Output only the final result.",
           messages: [
             {
               role: "user",
@@ -103,7 +145,7 @@ export async function POST(
 
         send("done", { success: true });
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Unknown error";
+        const { message } = classifyError(err);
         send("error", { error: message });
       } finally {
         controller.close();
@@ -114,8 +156,9 @@ export async function POST(
   return new Response(stream, {
     headers: {
       "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
+      "Cache-Control": "no-cache, no-transform",
       Connection: "keep-alive",
+      "X-Accel-Buffering": "no",
     },
   });
 }
