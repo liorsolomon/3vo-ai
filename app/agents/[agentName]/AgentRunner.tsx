@@ -302,7 +302,14 @@ export default function AgentRunner({ agent }: Props) {
           className="w-full bg-[#00FF85] text-[#0A0A0A] text-xs font-bold tracking-widest py-4 hover:bg-[#00FF85]/80 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           style={{ fontFamily: "var(--font-share-tech-mono)" }}
         >
-          {isRunning ? "RUNNING…" : `RUN ${agent.title.toUpperCase()} AGENT →`}
+          {isRunning ? (
+            "RUNNING…"
+          ) : (
+            <>
+              <span className="sm:hidden">RUN AGENT →</span>
+              <span className="hidden sm:inline">RUN {agent.title.toUpperCase()} AGENT →</span>
+            </>
+          )}
         </button>
       </form>
 
@@ -327,17 +334,17 @@ export default function AgentRunner({ agent }: Props) {
               OUTPUT
             </p>
             {output && status === "done" && (
-              <div className="flex gap-4">
+              <div className="flex gap-2">
                 <button
                   onClick={handleCopy}
-                  className="text-xs tracking-widest text-[#E8E8E8]/40 hover:text-[#00FF85] transition-colors"
+                  className="text-xs tracking-widest text-[#E8E8E8]/40 hover:text-[#00FF85] transition-colors px-2 py-1.5 -mx-2 -my-1.5"
                   style={{ fontFamily: "var(--font-share-tech-mono)" }}
                 >
                   {copied ? "COPIED ✓" : "COPY"}
                 </button>
                 <button
                   onClick={handleDownload}
-                  className="text-xs tracking-widest text-[#E8E8E8]/40 hover:text-[#00FF85] transition-colors"
+                  className="text-xs tracking-widest text-[#E8E8E8]/40 hover:text-[#00FF85] transition-colors px-2 py-1.5 -my-1.5"
                   style={{ fontFamily: "var(--font-share-tech-mono)" }}
                 >
                   DOWNLOAD .TXT
@@ -348,7 +355,7 @@ export default function AgentRunner({ agent }: Props) {
 
           <div
             ref={outputRef}
-            className="bg-[#111111] border border-[#222222] p-4 sm:p-6 text-sm leading-relaxed text-[#E8E8E8]/80 max-h-[60vh] overflow-y-auto whitespace-pre-wrap"
+            className="bg-[#111111] border border-[#222222] p-4 sm:p-6 text-sm leading-relaxed text-[#E8E8E8]/80 max-h-[45vh] sm:max-h-[60vh] overflow-y-auto whitespace-pre-wrap"
             style={{ fontFamily: "var(--font-space-mono)" }}
           >
             {output}

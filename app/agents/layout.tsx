@@ -28,10 +28,11 @@ function AgentsNav() {
 
         <a
           href="/api/checkout"
-          className="text-[#0A0A0A] bg-[#00FF85] text-xs font-bold tracking-widest px-4 py-1.5 hover:bg-[#00FF85]/80 transition-colors hidden sm:block"
+          className="text-[#0A0A0A] bg-[#00FF85] text-xs font-bold tracking-widest px-3 sm:px-4 py-1.5 hover:bg-[#00FF85]/80 transition-colors"
           style={{ fontFamily: "var(--font-share-tech-mono)" }}
         >
-          UPGRADE $19/MO
+          <span className="sm:hidden">UPGRADE</span>
+          <span className="hidden sm:inline">UPGRADE $19/MO</span>
         </a>
       </div>
     </header>
