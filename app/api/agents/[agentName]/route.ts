@@ -1,6 +1,20 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 import { AGENTS, AgentName } from "@/app/lib/prompts";
+
+function logRun(agentName: string) {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_ANON_KEY;
+  if (!url || !key) return;
+  // Fire-and-forget — never block or throw on the stream
+  createClient(url, key)
+    .from("agent_runs")
+    .insert({ agent_name: agentName })
+    .then(({ error }) => {
+      if (error) console.error("[agent_runs] insert error:", error.message);
+    });
+}
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -144,6 +158,7 @@ export async function POST(
         }
 
         send("done", { success: true });
+        logRun(agentName);
       } catch (err) {
         const { message } = classifyError(err);
         send("error", { error: message });

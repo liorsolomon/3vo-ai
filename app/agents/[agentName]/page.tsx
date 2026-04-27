@@ -11,9 +11,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { agentName } = await params;
   const agent = AGENTS[agentName as AgentName];
   if (!agent) return {};
+
+  const title = `${agent.title} — prompts.3vo.ai`;
+  const description = agent.description;
+  const url = `https://prompts.3vo.ai/agents/${agentName}`;
+
   return {
-    title: `${agent.title} — prompts.3vo.ai`,
-    description: agent.description,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "prompts.3vo.ai",
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+    },
+    alternates: { canonical: url },
   };
 }
 
