@@ -11,7 +11,9 @@ interface Props {
 
 async function getData() {
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_ANON_KEY;
+  // Service role key bypasses RLS — required for reading subscribers table.
+  // Falls back to anon key but subscriber counts will show 0 without it.
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_ANON_KEY;
   if (!url || !key) return null;
 
   const db = createClient(url, key);
