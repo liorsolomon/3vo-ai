@@ -22,6 +22,8 @@ const MODEL = "claude-sonnet-4-6";
 const MAX_TOKENS = 1200;
 // Abort step 1+2 if they take longer than 30s each; 45s for the streaming step
 const STEP_TIMEOUT_MS = 30_000;
+// Per-field character limit — generous for real usage, prevents prompt-stuffing abuse
+const MAX_FIELD_CHARS = 2000;
 
 async function runStep(systemPrompt: string, userMessage: string): Promise<string> {
   const controller = new AbortController();
@@ -92,11 +94,18 @@ export async function POST(
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  // Validate required fields
+  // Validate required fields and enforce length limits
   for (const field of agent.fields) {
-    if (field.required && !inputs[field.name]?.trim()) {
+    const value = inputs[field.name] ?? "";
+    if (field.required && !value.trim()) {
       return NextResponse.json(
         { error: `Missing required field: ${field.label}` },
+        { status: 400 }
+      );
+    }
+    if (value.length > MAX_FIELD_CHARS) {
+      return NextResponse.json(
+        { error: `Input too long: ${field.label} (max ${MAX_FIELD_CHARS} characters)` },
         { status: 400 }
       );
     }

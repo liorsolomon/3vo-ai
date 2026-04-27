@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const articlePublished = new Date("2026-04-23");
 
   const agentRoutes: MetadataRoute.Sitemap = AGENT_LIST.map((agent) => ({
-    url: `${prompts}/${agent.name}`,
+    url: `${prompts}/agents/${agent.name}`,
     lastModified,
     changeFrequency: "monthly" as const,
     priority: 0.8,
@@ -25,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.3 },
     { url: `${base}/terms`, lastModified, changeFrequency: "yearly", priority: 0.3 },
     // prompts.3vo.ai — agents product
-    { url: prompts, lastModified, changeFrequency: "weekly", priority: 0.95 },
+    { url: `${prompts}/agents`, lastModified, changeFrequency: "weekly", priority: 0.95 },
     ...agentRoutes,
   ];
 }

@@ -11,6 +11,8 @@ export default function UpgradeSuccessPage() {
 
   useEffect(() => {
     setUpgraded();
+    // GA4 purchase event with revenue value for conversion tracking
+    track("purchase", { currency: "USD", value: "19", source: "stripe_redirect" });
     track("upgrade_success", { source: "stripe_redirect" });
 
     const interval = setInterval(() => {
