@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AgentConfig } from "@/app/lib/prompts";
 import { isGated, isUpgraded, incrementRuns, runsRemaining, FREE_RUNS } from "@/app/lib/gate";
 import { track, trackAgentView, trackGateShown } from "@/app/lib/track";
+import GateEmailCapture from "./GateEmailCapture";
 
 const FALLBACK_STRIPE_LINK = process.env.NEXT_PUBLIC_STRIPE_LINK ?? "#upgrade";
 
@@ -239,6 +240,7 @@ export default function AgentRunner({ agent }: Props) {
           >
             {checkingOut ? "REDIRECTING…" : "UPGRADE FOR $19/MO →"}
           </button>
+          <GateEmailCapture agentName={agent.name} />
         </div>
       )}
 
