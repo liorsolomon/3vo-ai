@@ -8,14 +8,8 @@ const stripe = process.env.STRIPE_SECRET_KEY
 const PRICE_ID = process.env.STRIPE_PRICE_ID;
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "https://prompts.3vo.ai";
 
-export async function POST(_req: NextRequest) {
-  if (!stripe || !PRICE_ID) {
-    return NextResponse.json(
-      { error: "Stripe is not configured" },
-      { status: 503 }
-    );
-  }
-
+async function createSession(): Promise<{ url: string | null } | { error: string }> {
+  if (!stripe || !PRICE_ID) return { error: "Stripe is not configured" };
   try {
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
@@ -26,10 +20,41 @@ export async function POST(_req: NextRequest) {
       allow_promotion_codes: true,
       metadata: { product: "prompts_3vo_ai" },
     });
-
-    return NextResponse.json({ url: session.url });
+    return { url: session.url };
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Checkout error";
-    return NextResponse.json({ error: message }, { status: 500 });
+    return { error: err instanceof Error ? err.message : "Checkout error" };
   }
+}
+
+// GET: used by nav links and direct browser navigation
+export async function GET(_req: NextRequest) {
+  const fallback = process.env.NEXT_PUBLIC_STRIPE_LINK;
+
+  if (!stripe || !PRICE_ID) {
+    if (fallback) return NextResponse.redirect(fallback);
+    return NextResponse.redirect(`${BASE_URL}/agents`);
+  }
+
+  const result = await createSession();
+  if ("error" in result) {
+    if (fallback) return NextResponse.redirect(fallback);
+    return NextResponse.redirect(`${BASE_URL}/agents`);
+  }
+  return NextResponse.redirect(result.url ?? `${BASE_URL}/agents`);
+}
+
+// POST: used by AgentRunner client component (returns JSON URL)
+export async function POST(_req: NextRequest) {
+  const fallback = process.env.NEXT_PUBLIC_STRIPE_LINK;
+
+  if (!stripe || !PRICE_ID) {
+    if (fallback) return NextResponse.json({ url: fallback });
+    return NextResponse.json({ error: "Stripe is not configured" }, { status: 503 });
+  }
+
+  const result = await createSession();
+  if ("error" in result) {
+    return NextResponse.json({ error: result.error }, { status: 500 });
+  }
+  return NextResponse.json({ url: result.url });
 }

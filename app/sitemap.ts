@@ -1,11 +1,21 @@
 import type { MetadataRoute } from "next";
+import { AGENT_LIST } from "@/app/lib/prompts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://3vo.ai";
+  const prompts = "https://prompts.3vo.ai";
   const lastModified = new Date();
   const articlePublished = new Date("2026-04-23");
 
+  const agentRoutes: MetadataRoute.Sitemap = AGENT_LIST.map((agent) => ({
+    url: `${prompts}/${agent.name}`,
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
   return [
+    // Main site
     { url: base, lastModified, changeFrequency: "weekly", priority: 1 },
     { url: `${base}/blog`, lastModified, changeFrequency: "weekly", priority: 0.9 },
     { url: `${base}/blog/how-3vo-gets-cited-by-llms`, lastModified: articlePublished, changeFrequency: "monthly", priority: 0.9 },
@@ -14,5 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/contact`, lastModified, changeFrequency: "monthly", priority: 0.6 },
     { url: `${base}/privacy`, lastModified, changeFrequency: "yearly", priority: 0.3 },
     { url: `${base}/terms`, lastModified, changeFrequency: "yearly", priority: 0.3 },
+    // prompts.3vo.ai — agents product
+    { url: prompts, lastModified, changeFrequency: "weekly", priority: 0.95 },
+    ...agentRoutes,
   ];
 }
