@@ -59,7 +59,7 @@ test.describe("Agents hub", () => {
 
   test("nav header is present on agent pages", async ({ page }) => {
     await page.goto("/agents");
-    await expect(page.getByText("PROMPTS.3VO.AI")).toBeVisible();
+    await expect(page.locator("header").getByText("PROMPTS.3VO.AI")).toBeVisible();
   });
 
   test("nav UPGRADE button is visible on mobile viewport", async ({ page }) => {
