@@ -24,6 +24,12 @@ export interface AgentConfig {
   polishPrompt: (inputs: Record<string, string>, draft: string) => string;
 }
 
+// Serializable subset — safe to pass from Server Components to Client Components
+export type SerializableAgentConfig = Pick<
+  AgentConfig,
+  "name" | "title" | "tagline" | "description" | "fields"
+>;
+
 export const AGENTS: Record<AgentName, AgentConfig> = {
   "cold-pitch": {
     name: "cold-pitch",

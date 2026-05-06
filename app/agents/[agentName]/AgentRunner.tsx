@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { AgentConfig } from "@/app/lib/prompts";
+import { SerializableAgentConfig } from "@/app/lib/prompts";
 import { isGated, isUpgraded, incrementRuns, runsRemaining, FREE_RUNS } from "@/app/lib/gate";
 import { track, trackAgentView, trackGateShown } from "@/app/lib/track";
 import GateEmailCapture from "./GateEmailCapture";
@@ -13,7 +13,7 @@ type Step = { step: number; label: string };
 type RunStatus = "idle" | "running" | "done" | "error";
 
 interface Props {
-  agent: AgentConfig;
+  agent: SerializableAgentConfig;
 }
 
 async function startCheckout(agentName: string): Promise<void> {

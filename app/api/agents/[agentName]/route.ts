@@ -80,13 +80,6 @@ export async function POST(
     return NextResponse.json({ error: "Unknown agent" }, { status: 404 });
   }
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return NextResponse.json(
-      { error: "API key not configured. Set ANTHROPIC_API_KEY in env." },
-      { status: 503 }
-    );
-  }
-
   let inputs: Record<string, string>;
   try {
     inputs = await req.json();
@@ -94,7 +87,7 @@ export async function POST(
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  // Validate required fields and enforce length limits
+  // Validate required fields and enforce length limits before any other checks
   for (const field of agent.fields) {
     const value = inputs[field.name] ?? "";
     if (field.required && !value.trim()) {
@@ -109,6 +102,13 @@ export async function POST(
         { status: 400 }
       );
     }
+  }
+
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return NextResponse.json(
+      { error: "API key not configured. Set ANTHROPIC_API_KEY in env." },
+      { status: 503 }
+    );
   }
 
   const encoder = new TextEncoder();

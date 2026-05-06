@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { AGENTS, AgentName } from "@/app/lib/prompts";
+import { AGENTS, AgentName, SerializableAgentConfig } from "@/app/lib/prompts";
 import AgentRunner from "./AgentRunner";
 import type { Metadata } from "next";
 
@@ -40,5 +40,8 @@ export default async function AgentPage({ params }: Props) {
   const agent = AGENTS[agentName as AgentName];
   if (!agent) notFound();
 
-  return <AgentRunner agent={agent} />;
+  const { name, title, tagline, description, fields } = agent;
+  const serializableAgent: SerializableAgentConfig = { name, title, tagline, description, fields };
+
+  return <AgentRunner agent={serializableAgent} />;
 }
