@@ -51,7 +51,7 @@ export default function GateEmailCapture({ agentName }: Props) {
       >
         NOT READY? GET NOTIFIED OF DEALS.
       </p>
-      <form onSubmit={handleSubmit} className="flex gap-2">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
         <input
           type="email"
           value={email}
@@ -65,7 +65,7 @@ export default function GateEmailCapture({ agentName }: Props) {
         <button
           type="submit"
           disabled={state === "submitting"}
-          className="text-[#E8E8E8]/50 text-xs tracking-widest border border-[#333] px-4 py-2 hover:text-[#E8E8E8] hover:border-[#555] transition-colors disabled:opacity-40 whitespace-nowrap"
+          className="w-full sm:w-auto text-[#E8E8E8]/50 text-xs tracking-widest border border-[#333] px-4 py-2 hover:text-[#E8E8E8] hover:border-[#555] transition-colors disabled:opacity-40 whitespace-nowrap"
           style={{ fontFamily: "var(--font-share-tech-mono)" }}
         >
           {state === "submitting" ? "…" : "NOTIFY ME"}
