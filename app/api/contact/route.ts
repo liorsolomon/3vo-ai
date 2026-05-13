@@ -3,9 +3,9 @@ import { Resend } from "resend";
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
-  const firstName = typeof body?.firstName === "string" ? body.firstName.trim() : "";
-  const lastName = typeof body?.lastName === "string" ? body.lastName.trim() : "";
-  const description = typeof body?.description === "string" ? body.description.trim() : "";
+  const firstName = stripHtml(typeof body?.firstName === "string" ? body.firstName : "");
+  const lastName = stripHtml(typeof body?.lastName === "string" ? body.lastName : "");
+  const description = stripHtml(typeof body?.description === "string" ? body.description : "");
 
   if (!firstName || !description) {
     return NextResponse.json({ error: "Invalid submission" }, { status: 400 });
@@ -32,6 +32,10 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({ ok: true });
+}
+
+function stripHtml(s: string): string {
+  return s.replace(/<[^>]*>/g, "").trim();
 }
 
 function escapeHtml(s: string) {

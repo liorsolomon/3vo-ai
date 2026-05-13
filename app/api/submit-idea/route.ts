@@ -4,9 +4,9 @@ import { Resend } from "resend";
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
 
-  const name = typeof body?.name === "string" ? body.name.trim() : "";
-  const email = typeof body?.email === "string" ? body.email.trim() : "";
-  const idea = typeof body?.idea === "string" ? body.idea.trim() : "";
+  const name = stripHtml(typeof body?.name === "string" ? body.name : "");
+  const email = stripHtml(typeof body?.email === "string" ? body.email : "");
+  const idea = stripHtml(typeof body?.idea === "string" ? body.idea : "");
   const turnstileToken = typeof body?.turnstileToken === "string" ? body.turnstileToken : "";
 
   if (!name || !email || !idea || !email.includes("@")) {
@@ -89,6 +89,12 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({ ok: true });
+}
+
+// Strip all HTML tags so stored values are always plain text.
+// escapeHtml is kept separately for HTML template rendering.
+function stripHtml(s: string): string {
+  return s.replace(/<[^>]*>/g, "").trim();
 }
 
 function escapeHtml(s: string) {
