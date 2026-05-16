@@ -1110,6 +1110,19 @@ function Footer() {
           >
             © 2026 3vo.ai — The 3vo.ai team
           </p>
+          <a
+            href="https://betalist.com/startups/3vo?utm_campaign=badge-3vo&utm_medium=badge&utm_source=badge-featured"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-block"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://betalist.com/badges/featured?id=161735&theme=color"
+              alt="Featured on BetaList"
+              className="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity"
+            />
+          </a>
         </div>
 
         <div className="flex items-center gap-6">
