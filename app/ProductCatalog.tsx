@@ -5,8 +5,8 @@ import { useState } from "react";
 const catalog = [
   { number: "001", name: "Notion Template OS",           category: "Productivity", status: "LIVE", href: "https://templates.3vo.ai" },
   { number: "002", name: "AI Prompt Packs",               category: "AI Tools",     status: "LIVE", href: "https://prompts.3vo.ai" },
-  { number: "003", name: "Automation Workflow Templates", category: "Automation",   status: "LIVE", href: "https://tools.3vo.ai" },
-  { number: "004", name: "Niche Reports",                 category: "Research",     status: "LIVE", href: "https://validate.3vo.ai" },
+  { number: "003", name: "Automation Workflow Templates", category: "Automation",   status: "BUILDING", href: "#" },
+  { number: "004", name: "Niche Reports",                 category: "Research",     status: "BUILDING", href: "#" },
   { number: "005", name: "VC Match Kit",                  category: "Fundraising",  status: "LIVE", href: "https://vc.3vo.ai" },
   { number: "006", name: "Goffer AI",                     category: "Knowledge",    status: "LIVE", href: "https://goffer.ai" },
   { number: "007", name: "Agent Starter Kits",            category: "AI Tools",     status: "SOON", href: "#" },
