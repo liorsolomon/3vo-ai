@@ -8,7 +8,8 @@ const catalog = [
   { number: "003", name: "Automation Workflow Templates", category: "Automation",   status: "LIVE", href: "https://tools.3vo.ai" },
   { number: "004", name: "Niche Reports",                 category: "Research",     status: "LIVE", href: "https://validate.3vo.ai" },
   { number: "005", name: "VC Match Kit",                  category: "Fundraising",  status: "LIVE", href: "https://vc.3vo.ai" },
-  { number: "006", name: "Agent Starter Kits",            category: "AI Tools",     status: "SOON", href: "#" },
+  { number: "006", name: "Goffer AI",                     category: "Knowledge",    status: "LIVE", href: "https://goffer.ai" },
+  { number: "007", name: "Agent Starter Kits",            category: "AI Tools",     status: "SOON", href: "#" },
 ];
 
 const STATUS_STYLES: Record<string, string> = {

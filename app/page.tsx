@@ -346,7 +346,7 @@ function EmailCapture() {
 
 function SocialProofBar() {
   const stats = [
-    { value: "5", label: "products live today" },
+    { value: "6", label: "products live today" },
     { value: "30-day", label: "money-back guarantee" },
     { value: "Early", label: "access — join the community" },
     { value: "→", label: "built for solopreneurs who move fast" },
@@ -434,6 +434,15 @@ const PRODUCTS: Product[] = [
     cta: "Get VC Match Kit",
     href: "https://vc.3vo.ai",
   },
+  {
+    name: "Goffer AI",
+    label: "KNOWLEDGE",
+    headline: "Chat with every document, email, and file you own.",
+    body: "Connect Google Drive, upload PDFs and spreadsheets, link your Gmail — then ask questions across all of it in plain English. One AI inbox for everything you've ever created.",
+    price: "$9 · Per month",
+    cta: "Get Goffer AI",
+    href: "https://goffer.ai",
+  },
 ];
 
 function ProductCard({ product }: { product: Product }) {
@@ -520,7 +529,7 @@ function Products() {
           className="text-[#E8E8E8]/40 text-[14px] leading-relaxed mb-14 max-w-xl"
           style={{ fontFamily: "var(--font-space-mono)" }}
         >
-          Five live products. All independently useful. All built for the way
+          Six live products. All independently useful. All built for the way
           independent operators actually work.
         </p>
 
@@ -561,6 +570,11 @@ const QUICK_MATCH = [
     want: "Find investors who actually fund your stage",
     start: "VC Match Kit",
     href: "https://vc.3vo.ai",
+  },
+  {
+    want: "Chat with your files, emails, and documents using AI",
+    start: "Goffer AI",
+    href: "https://goffer.ai",
   },
 ];
 
@@ -733,7 +747,7 @@ const FAQS = [
   },
   {
     q: "Can I buy or use your existing products now?",
-    a: "Yes — all three products are live. Notion Template OS at templates.3vo.ai, AI Prompt Packs at prompts.3vo.ai, and Automation Workflows at tools.3vo.ai.",
+    a: "Yes — all six products are live. Browse the full catalog on this page or jump directly to any product using the links in the navigation.",
   },
   {
     q: "Do you work with external founders or clients?",
@@ -1062,7 +1076,7 @@ function TrustBar() {
           className="text-[#E8E8E8] text-[clamp(20px,3vw,32px)] leading-[1.3] tracking-tight mb-4"
           style={{ fontFamily: "var(--font-syne)", fontWeight: 700 }}
         >
-          All five products. One-time payments. No subscriptions. No fluff.
+          Six products. Built lean. Priced honestly. No subscriptions. No fluff.
         </p>
 
         <p
@@ -1170,6 +1184,15 @@ function Footer() {
             style={{ fontFamily: "var(--font-share-tech-mono)" }}
           >
             VC KIT
+          </a>
+          <a
+            href="https://goffer.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E8E8E8]/30 hover:text-[#E8E8E8]/60 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            GOFFER
           </a>
           <a
             href="/about"
