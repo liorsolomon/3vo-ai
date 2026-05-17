@@ -31,7 +31,7 @@ function useCountUp(target: number, duration: number, trigger: boolean) {
 export default function SignalStrip() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [triggered, setTriggered] = useState(false);
-  const count = useCountUp(5, 600, triggered);
+  const count = useCountUp(6, 600, triggered);
   const display = String(count).padStart(3, "0");
 
   useEffect(() => {
