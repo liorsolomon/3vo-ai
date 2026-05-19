@@ -74,6 +74,23 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#0A0A0A] text-[#E8E8E8]">
         {children}
 
+        {/* Consent Mode v2 defaults — must be set before GA4 loads */}
+        {GA4_ID && (
+          <Script id="google-consent-defaults" strategy="beforeInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'default', {
+                'analytics_storage': 'granted',
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'wait_for_update': 500
+              });
+            `}
+          </Script>
+        )}
+
         {/* Google Analytics 4 */}
         {GA4_ID && (
           <>
@@ -83,8 +100,6 @@ export default function RootLayout({
             />
             <Script id="ga4-init" strategy="afterInteractive">
               {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', '${GA4_ID}');
               `}
