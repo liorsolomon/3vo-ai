@@ -1,4 +1,10 @@
 {
+  "crons": [
+    {
+      "path": "/api/keepalive",
+      "schedule": "0 5 * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/api/agents/(.*)",
