@@ -6,6 +6,7 @@ import { SerializableAgentConfig } from "@/app/lib/prompts";
 import { isGated, isUpgraded, incrementRuns, runsRemaining, FREE_RUNS } from "@/app/lib/gate";
 import { track, trackAgentView, trackGateShown } from "@/app/lib/track";
 import GateEmailCapture from "./GateEmailCapture";
+import GoogleDrivePicker from "./GoogleDrivePicker";
 
 const FALLBACK_STRIPE_LINK = process.env.NEXT_PUBLIC_STRIPE_LINK ?? "#upgrade";
 
@@ -277,17 +278,24 @@ export default function AgentRunner({ agent }: Props) {
               )}
             </label>
             {field.type === "textarea" ? (
-              <textarea
-                id={field.name}
-                value={inputs[field.name] ?? ""}
-                onChange={(e) => handleChange(field.name, e.target.value)}
-                placeholder={field.placeholder}
-                required={field.required}
-                disabled={isRunning || gated}
-                rows={3}
-                className="w-full bg-[#111111] border border-[#222222] text-[#E8E8E8] text-sm px-4 py-3 placeholder:text-[#E8E8E8]/20 focus:outline-none focus:border-[#00FF85]/50 disabled:opacity-40 resize-none rounded-none"
-                style={{ fontFamily: "var(--font-space-mono)" }}
-              />
+              <>
+                <textarea
+                  id={field.name}
+                  value={inputs[field.name] ?? ""}
+                  onChange={(e) => handleChange(field.name, e.target.value)}
+                  placeholder={field.placeholder}
+                  required={field.required}
+                  disabled={isRunning || gated}
+                  rows={3}
+                  className="w-full bg-[#111111] border border-[#222222] text-[#E8E8E8] text-sm px-4 py-3 placeholder:text-[#E8E8E8]/20 focus:outline-none focus:border-[#00FF85]/50 disabled:opacity-40 resize-none rounded-none"
+                  style={{ fontFamily: "var(--font-space-mono)" }}
+                />
+                <GoogleDrivePicker
+                  fieldName={field.name}
+                  disabled={isRunning || gated}
+                  onImport={handleChange}
+                />
+              </>
             ) : (
               <input
                 id={field.name}
