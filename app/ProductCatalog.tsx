@@ -10,6 +10,7 @@ const catalog = [
   { number: "005", name: "VC Match Kit",                  category: "Fundraising",  status: "LIVE", href: "https://vc.3vo.ai" },
   { number: "006", name: "Goffer AI",                     category: "Knowledge",    status: "LIVE", href: "https://goffer.ai" },
   { number: "007", name: "Agent Starter Kits",            category: "AI Tools",     status: "SOON", href: "#" },
+  { number: "008", name: "LinkedIn Signal Outreach Pack", category: "Sales",        status: "LIVE", href: "https://liorscribe.gumroad.com/l/gpwny" },
 ];
 
 const STATUS_STYLES: Record<string, string> = {
