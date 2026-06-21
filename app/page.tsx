@@ -1138,13 +1138,17 @@ function Footer() {
             />
           </a>
           <a
-            href="https://www.toolpilot.ai"
+            href="https://www.toolpilot.ai/products/3vo-ai"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-block text-[#E8E8E8]/40 hover:text-[#E8E8E8]/70 text-[10px] tracking-widest transition-colors"
-            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+            className="mt-2 inline-block"
           >
-            Listed on ToolPilot.ai
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://www.toolpilot.ai/cdn/shop/files/f-b_690x151_crop_center.png"
+              alt="Featured on ToolPilot"
+              className="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity"
+            />
           </a>
         </div>
 
