@@ -1137,6 +1137,15 @@ function Footer() {
               className="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity"
             />
           </a>
+          <a
+            href="https://www.toolpilot.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-block text-[#E8E8E8]/40 hover:text-[#E8E8E8]/70 text-[10px] tracking-widest transition-colors"
+            style={{ fontFamily: "var(--font-share-tech-mono)" }}
+          >
+            Listed on ToolPilot.ai
+          </a>
         </div>
 
         <div className="flex items-center gap-6">
