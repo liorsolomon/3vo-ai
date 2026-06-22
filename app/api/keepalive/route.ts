@@ -18,15 +18,16 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const res = await fetch(`${supabaseUrl}/rest/v1/ideas?limit=1&select=id`, {
+    // Ping the REST root — always returns 200 + OpenAPI spec regardless of schema state
+    const res = await fetch(`${supabaseUrl}/rest/v1/`, {
       headers: {
         "apikey": supabaseKey,
         "Authorization": `Bearer ${supabaseKey}`,
       },
     });
-    return NextResponse.json({ ok: res.ok, status: res.status });
+    return NextResponse.json({ ok: res.ok, status: res.status, ts: new Date().toISOString() });
   } catch (err) {
     console.error("[keepalive] supabase ping error:", err);
-    return NextResponse.json({ ok: false, error: String(err) }, { status: 500 });
+    return NextResponse.json({ ok: false, error: String(err), ts: new Date().toISOString() }, { status: 500 });
   }
 }
