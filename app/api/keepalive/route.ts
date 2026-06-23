@@ -11,7 +11,8 @@ export async function GET(req: NextRequest) {
   }
 
   const supabaseUrl = process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.SUPABASE_ANON_KEY;
+  // Service-role key required: anon key gets 401 on /rest/v1/ root, which doesn't count as DB activity
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseKey) {
     return NextResponse.json({ ok: false, reason: "env_missing" }, { status: 200 });
