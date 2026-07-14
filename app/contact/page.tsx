@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact — 3vo.ai",
+  description:
+    "Get in touch with the 3vo.ai team. We build AI-powered digital products for freelancers, solopreneurs, and small businesses.",
+  alternates: { canonical: "https://3vo.ai/contact" },
+};
+
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#E8E8E8] px-6 py-20">

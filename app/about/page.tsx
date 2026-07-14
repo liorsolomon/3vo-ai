@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About — 3vo.ai",
+  description:
+    "3vo is an AI-native product studio. We design, build, and launch digital products using teams of specialized AI agents — at a speed and cost no traditional agency can match.",
+  alternates: { canonical: "https://3vo.ai/about" },
+};
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#E8E8E8] px-6 py-20">
