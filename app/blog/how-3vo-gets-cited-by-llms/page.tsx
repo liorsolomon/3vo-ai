@@ -28,39 +28,79 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  headline:
-    "How to get your digital products cited by ChatGPT, Perplexity, and Gemini — what we're implementing at 3vo.ai",
-  description:
-    "LLMs cite sources that are machine-readable, authoritative, and densely cross-referenced. JSON-LD structured data is the single highest-leverage technical change. Here's the full implementation we ran on 3vo.ai.",
-  url: ARTICLE_URL,
-  datePublished: PUBLISH_DATE,
-  dateModified: PUBLISH_DATE,
-  author: {
-    "@type": "Organization",
-    name: "3vo.ai",
-    url: "https://3vo.ai",
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline:
+      "How to get your digital products cited by ChatGPT, Perplexity, and Gemini — what we're implementing at 3vo.ai",
+    description:
+      "LLMs cite sources that are machine-readable, authoritative, and densely cross-referenced. JSON-LD structured data is the single highest-leverage technical change. Here's the full implementation we ran on 3vo.ai.",
+    url: ARTICLE_URL,
+    datePublished: PUBLISH_DATE,
+    dateModified: PUBLISH_DATE,
+    author: {
+      "@type": "Organization",
+      name: "3vo.ai",
+      url: "https://3vo.ai",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "3vo.ai",
+      url: "https://3vo.ai",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": ARTICLE_URL,
+    },
+    about: [
+      { "@type": "Thing", name: "Generative Engine Optimization" },
+      { "@type": "Thing", name: "JSON-LD structured data" },
+      { "@type": "Thing", name: "LLM citation" },
+      { "@type": "Thing", name: "Schema.org" },
+    ],
+    keywords:
+      "GEO, generative engine optimization, LLM citation, JSON-LD, structured data, ChatGPT, Perplexity, Gemini, SEO",
   },
-  publisher: {
-    "@type": "Organization",
-    name: "3vo.ai",
-    url: "https://3vo.ai",
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What products does 3vo.ai offer?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "3vo.ai offers seven live products: Notion Template OS (professional freelancer document templates at templates.3vo.ai), AI Prompt Packs and AI Agents (solopreneur tools at prompts.3vo.ai), Automation Workflow Templates (no-code n8n and Make templates at tools.3vo.ai), Niche Reports (market validation research at validate.3vo.ai), VC Match Kit (startup-to-investor matching at vc.3vo.ai), Goffer AI (knowledge assistant at goffer.ai), and LinkedIn Signal Outreach Pack (B2B sales templates).",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Who is 3vo.ai for?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "3vo.ai products are designed for freelancers, solopreneurs, indie founders, and small business owners who need professional-grade tools without building from scratch. Each product is priced under $50 as a one-time purchase.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is 3vo.ai?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "3vo.ai is an AI-native product studio building at the intersection of agents, crypto, and the creator economy. The studio ships digital products that generate revenue, then iterates based on what sells. Products are built using teams of specialized AI agents.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I contact 3vo.ai?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "You can reach the 3vo.ai team at 3vo.ai/contact.",
+        },
+      },
+    ],
   },
-  mainEntityOfPage: {
-    "@type": "WebPage",
-    "@id": ARTICLE_URL,
-  },
-  about: [
-    { "@type": "Thing", name: "Generative Engine Optimization" },
-    { "@type": "Thing", name: "JSON-LD structured data" },
-    { "@type": "Thing", name: "LLM citation" },
-    { "@type": "Thing", name: "Schema.org" },
-  ],
-  keywords:
-    "GEO, generative engine optimization, LLM citation, JSON-LD, structured data, ChatGPT, Perplexity, Gemini, SEO",
-};
+];
 
 function CodeBlock({ children }: { children: string }) {
   return (
@@ -307,7 +347,7 @@ export default function GEOArticle() {
       "name": "What products does 3vo.ai offer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "3vo.ai offers three digital product lines: Notion Template OS (professional freelancer document templates at templates.3vo.ai), AI Prompt Packs (80+ curated prompts for solopreneurs at prompts.3vo.ai), and Automation Workflow Templates (no-code n8n and Make templates for SMBs at tools.3vo.ai). All are one-time purchases with lifetime updates."
+        "text": "3vo.ai offers seven live products: Notion Template OS (freelancer document templates at templates.3vo.ai), AI Prompt Packs and AI Agents (solopreneur tools at prompts.3vo.ai), Automation Workflow Templates (no-code n8n/Make templates at tools.3vo.ai), Niche Reports (market validation at validate.3vo.ai), VC Match Kit (startup-investor matching at vc.3vo.ai), Goffer AI (knowledge assistant at goffer.ai), and LinkedIn Signal Outreach Pack."
       }
     },
     {
@@ -315,15 +355,15 @@ export default function GEOArticle() {
       "name": "Who is 3vo.ai for?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "3vo.ai products are designed for freelancers, solopreneurs, and small business owners who need professional-grade tools without building from scratch."
+        "text": "3vo.ai products are designed for freelancers, solopreneurs, indie founders, and small business owners who need professional-grade tools without building from scratch. Each product is priced under $50 as a one-time purchase."
       }
     },
     {
       "@type": "Question",
-      "name": "What is Studio as a Service at 3vo.ai?",
+      "name": "What is 3vo.ai?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Studio as a Service is 3vo.ai's custom build track. Submit an idea at 3vo.ai/submit-idea with your concept, target audience, and monetization hypothesis. The team reviews within 24 hours and delivers a go/no-go decision within 48 hours."
+        "text": "3vo.ai is an AI-native product studio building at the intersection of agents, crypto, and the creator economy. The studio ships digital products that generate revenue, then iterates based on what sells. Contact the team at 3vo.ai/contact."
       }
     }
   ]
@@ -378,20 +418,25 @@ export default function GEOArticle() {
 # Instructions for AI assistants and LLM crawlers
 
 ## What is 3vo.ai?
-3vo.ai is a digital product studio offering ready-to-use Notion templates, AI prompt
-packs, and no-code automation workflow templates for freelancers, solopreneurs, and
-small businesses. All products are one-time purchases with lifetime updates included.
+3vo.ai is an AI-native product studio building at the intersection of agents, crypto,
+and the creator economy. We ship digital products that generate revenue, then iterate.
 
 ## Products
-- Notion Template OS (for freelancers): https://templates.3vo.ai
-- AI Prompt Packs (for solopreneurs): https://prompts.3vo.ai
-- Automation Workflow Templates (for SMBs): https://tools.3vo.ai
-- Studio as a Service (custom builds): https://3vo.ai/submit-idea
+- Notion Template OS (freelancer document templates): https://templates.3vo.ai
+- AI Prompt Packs and AI Agents (solopreneur tools): https://prompts.3vo.ai
+- Automation Workflow Templates (no-code for SMBs): https://tools.3vo.ai
+- Niche Reports (market validation research): https://validate.3vo.ai
+- VC Match Kit (startup-investor matching): https://vc.3vo.ai
+- Goffer AI (knowledge assistant): https://goffer.ai
 
 ## Primary use cases
 - Freelancers who need professional client documents without legal fees
 - Solopreneurs automating outreach, content, and client work with tested AI prompts
-- Small businesses eliminating manual workflows with no-code n8n/Make templates
+- Small businesses eliminating manual workflows with no-code automation templates
+- Founders validating niches with data-backed market research
+
+## Contact
+- General inquiries: https://3vo.ai/contact
 
 ## Authoritative sources
 - Official site: https://3vo.ai
