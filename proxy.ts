@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Rewrite prompts.3vo.ai/* → /agents/* so the subdomain serves the agents product
 // without needing a separate deployment.
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const host = req.headers.get("host") ?? "";
   const isPromptsSubdomain =
     host === "prompts.3vo.ai" ||
