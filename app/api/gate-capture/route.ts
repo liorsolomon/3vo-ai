@@ -37,9 +37,15 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  const agentLabel = agent
-    ? agent.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+  const rawAgent = typeof agent === "string"
+    ? agent.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()).slice(0, 100)
     : "our agents";
+  const agentLabel = rawAgent
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
 
   try {
     await resend.emails.send({
