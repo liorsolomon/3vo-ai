@@ -75,16 +75,83 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: "3vo.ai",
-              url: "https://3vo.ai",
-              logo: "https://3vo.ai/opengraph-image",
-              description:
-                "AI-native product studio building at the intersection of agents, crypto, and the creator economy.",
-              sameAs: ["https://twitter.com/3voai"],
-            }),
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "3vo.ai",
+                url: "https://3vo.ai",
+                logo: "https://3vo.ai/opengraph-image",
+                description:
+                  "AI-native product studio building at the intersection of agents, crypto, and the creator economy.",
+                sameAs: ["https://twitter.com/3voai"],
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "3vo.ai",
+                url: "https://3vo.ai",
+                description:
+                  "AI-native product studio. Notion templates, AI prompt packs, automation workflows, niche research, and more — all built for solopreneurs and indie founders.",
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                name: "3vo.ai Product Catalog",
+                url: "https://3vo.ai",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Notion Template OS",
+                    url: "https://templates.3vo.ai",
+                    description: "Professional Notion templates for freelancers — NDAs, SOWs, proposals, and client docs.",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "AI Prompt Packs",
+                    url: "https://prompts.3vo.ai",
+                    description: "500+ AI prompts for the roles a solo founder has to play: marketing, product, outreach, and validation.",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Automation Workflow Templates",
+                    url: "https://tools.3vo.ai",
+                    description: "No-code automation templates for small businesses built on n8n and Make.",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Niche Reports",
+                    url: "https://validate.3vo.ai",
+                    description: "Data-backed market research reports for founders validating a niche.",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 5,
+                    name: "VC Match Kit",
+                    url: "https://vc.3vo.ai",
+                    description: "Match your startup with relevant VCs before a fundraise.",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 6,
+                    name: "Goffer AI",
+                    url: "https://goffer.ai",
+                    description: "AI knowledge assistant for teams.",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 7,
+                    name: "LinkedIn Signal Outreach Pack",
+                    url: "https://liorscribe.gumroad.com/l/gpwny",
+                    description: "LinkedIn outreach templates and signals for B2B sales.",
+                  },
+                ],
+              },
+            ]),
           }}
         />
         {children}
