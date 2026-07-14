@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "The Thesis — 3vo.ai",
   description:
     "Why we build at the intersection of agents, crypto, and the creator economy.",
+  alternates: { canonical: "https://3vo.ai/thesis" },
 };
 
 const sections = [
