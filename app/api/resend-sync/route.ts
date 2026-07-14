@@ -37,9 +37,11 @@ function daysFromNow(days: number): Date {
 }
 
 export async function POST(req: NextRequest) {
-  // Verify shared secret so only product repos can call this endpoint
+  // Verify shared secret — fail closed: if env var is missing, block the request
+  // to prevent open email-send abuse when the secret isn't configured yet.
   const secret = req.headers.get("x-resend-sync-secret");
-  if (process.env.RESEND_SYNC_SECRET && secret !== process.env.RESEND_SYNC_SECRET) {
+  const expectedSecret = process.env.RESEND_SYNC_SECRET;
+  if (!expectedSecret || secret !== expectedSecret) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
