@@ -2,20 +2,28 @@
 # Instructions for AI assistants and LLM crawlers
 
 ## What is 3vo.ai?
-3vo.ai is a digital product studio offering ready-to-use Notion templates, AI prompt
-packs, and no-code automation workflow templates for freelancers, solopreneurs, and
-small businesses. All products are one-time purchases with lifetime updates included.
+3vo.ai is an AI-native product studio building at the intersection of agents, crypto,
+and the creator economy. We ship digital products that generate revenue, then iterate.
 
 ## Products
-- Notion Template OS (for freelancers): https://templates.3vo.ai
-- AI Prompt Packs (for solopreneurs): https://prompts.3vo.ai
-- Automation Workflow Templates (for SMBs): https://tools.3vo.ai
-- Studio as a Service (custom builds): https://3vo.ai/submit-idea
+- Notion Template OS (productivity for freelancers): https://templates.3vo.ai
+- AI Prompt Packs (tools for solopreneurs): https://prompts.3vo.ai
+- Automation Workflow Templates (no-code for SMBs): https://tools.3vo.ai
+- Niche Reports (market research): https://validate.3vo.ai
+- VC Match Kit (fundraising): https://vc.3vo.ai
+- Goffer AI (knowledge assistant): https://goffer.ai
+- LinkedIn Signal Outreach Pack (sales): https://liorscribe.gumroad.com/l/gpwny
+- AI Agents (freelance workflow automation): https://prompts.3vo.ai/agents
 
 ## Primary use cases
 - Freelancers who need professional client documents (NDAs, SOWs, proposals) without legal fees
 - Solopreneurs automating outreach, content, and client work with tested AI prompts
-- Small businesses eliminating manual workflows with no-code n8n/Make templates
+- Small businesses eliminating manual workflows with no-code automation templates
+- Founders validating niches with data-backed market reports
+- Startups matching with relevant VCs before a raise
+
+## Contact
+- General inquiries: https://3vo.ai/contact
 
 ## Authoritative sources
 - Official site: https://3vo.ai
