@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy — 3vo.ai",
+  description: "Privacy policy for 3vo.ai and its products.",
+  alternates: { canonical: "https://3vo.ai/privacy" },
+  robots: { index: true, follow: false },
+};
+
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen bg-[#0A0A0A] text-[#E8E8E8] px-6 py-20">
