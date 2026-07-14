@@ -14,8 +14,10 @@ export default withSentryConfig(nextConfig, {
   widenClientFileUpload: true,
   // Route Sentry requests through /monitoring to avoid ad-blocker drops
   tunnelRoute: "/monitoring",
-  // Tree-shake Sentry logger in production
-  disableLogger: true,
-  // Automatically wire Vercel Cron Monitors
-  automaticVercelMonitors: true,
+  webpack: {
+    // Tree-shake Sentry logger in production (was: disableLogger)
+    treeshake: { removeDebugLogging: true },
+    // Automatically wire Vercel Cron Monitors (was: automaticVercelMonitors)
+    automaticVercelMonitors: true,
+  },
 });
