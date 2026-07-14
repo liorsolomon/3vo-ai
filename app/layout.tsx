@@ -72,6 +72,21 @@ export default function RootLayout({
       className={`${syne.variable} ${spaceMono.variable} ${shareTechMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#0A0A0A] text-[#E8E8E8]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "3vo.ai",
+              url: "https://3vo.ai",
+              logo: "https://3vo.ai/opengraph-image",
+              description:
+                "AI-native product studio building at the intersection of agents, crypto, and the creator economy.",
+              sameAs: ["https://twitter.com/3voai"],
+            }),
+          }}
+        />
         {children}
 
         {/* Consent Mode v2 defaults — must be set before GA4 loads */}
